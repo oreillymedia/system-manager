@@ -1,0 +1,31 @@
+# Core System Configuration
+- name: Set locale /etc/environment
+  copy:
+    dest: /etc/environment
+    content: "LANG={{ system_locale }}\nLC_LANG={{ system_locale }}\n"
+
+- name: Set locale /etc/locale.conf
+  copy:
+    dest: /etc/locale.conf
+    content: "LANG={{ system_locale }}\nLC_COLLATE=C\n"
+
+- name: Enable sudo SSH Forwarding
+  lineinfile:
+    dest: /etc/sudoers
+    insertafter: '^#?\s*Defaults\s+env_keep\b'
+    line: 'Defaults    env_keep += "SSH_AUTH_SOCK"'
+    validate: "/usr/sbin/visudo -cf %s"
+
+# Core package manager configuration
+- name: pacman tasks
+  import_tasks: pacman.yml
+  when: ansible_distribution in pacman_distros
+
+# Common Developer packages
+- name: Install common utils
+  include_role:
+    name: pkg_install
+  vars:
+    pkg_name:
+    - htop
+    - git

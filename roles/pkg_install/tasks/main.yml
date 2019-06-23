@@ -23,6 +23,10 @@
     use: "{{ pkg_aur_builder }}"
     skip_installed: true
   with_items: "{{ pkg_aur_name }}"
+  become: true
+  become_user: "{{ pkg_aur_user }}"
   when:
   - ansible_distribution in pacman_distros
   - pkg_use_aur|bool
+  environment:
+    PATH: "{{ pkg_aur_path }}"

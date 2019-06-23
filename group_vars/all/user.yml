@@ -1,3 +1,10 @@
+system_locale: en_US.UTF-8
+
 # must be one of the AUR Helpers supported by ansible-aur: https://github.com/kewlfft/ansible-aur
 # yay, aurman, pacaur, trizen, pikaur
-pkg_aur_builder: pikaur
+aur_builder: pikaur
+
+# user to use when installing AUR packages,
+# will automatically be created and given correct permissions
+# should not be main user as it will also be excluded from Login Screen
+aur_user: aur

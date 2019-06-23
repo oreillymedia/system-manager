@@ -1,0 +1,86 @@
+- name: pacman - Install Core Packages
+  pacman:
+    state: present
+    name:
+      # base-devel -fakeroot
+      - autoconf
+      - automake
+      - binutils
+      - bison
+      - file
+      - findutils
+      - flex
+      - gawk
+      - gcc
+      - gettext
+      - grep
+      - groff
+      - gzip
+      - libtool
+      - m4
+      - make
+      - pacman
+      - patch
+      - pkgconf
+      - sed
+      - sudo
+      - systemd
+      - texinfo
+      - util-linux
+      - which
+      - po4a
+      - python-pip
+      - man-db
+      - cifs-utils
+
+- name: pacman - Install fakeroot
+  pacman:
+    state: present
+    name: fakeroot
+  when: ansible_kernel.find('Microsoft') == -1
+
+- name: pacman - WSL Tasks
+  import_tasks: pacman-wsl.yml
+  when: ansible_kernel.find('Microsoft') != -1
+
+- name: pacman - Full Upgrade
+  pacman:
+    update_cache: true
+    upgrade: true
+
+- name: pacman - AUR Create User
+  user: "name={{ aur_user }}"
+
+- name: pacman - Grant AUR User sudo pacman
+  copy:
+    dest: /etc/sudoers.d/aur-allow-to-sudo-pacman
+    content: "{{ aur_user }} ALL=(ALL) NOPASSWD: /usr/bin/pacman\n"
+    validate: "/usr/sbin/visudo -cf %s"
+
+- name: pacman - Check {{ aur_builder }}
+  command: pacman -Qq {{ aur_builder }}
+  ignore_errors: true
+  register: aur_builder_check
+  changed_when: false
+
+- name: pacman - gpg Import aurman Key
+  command: gpg --recv-keys 465022E743D71E39
+  become: true
+  become_user: "{{ aur_user }}"
+  when: aur_builder_check.rc == 1 and aur_builder == "aurman"
+
+- name: pacman - Install {{ aur_builder }}
+  include_role:
+    name: pkg_install
+  vars:
+    pkg_aur_name: "{{ aur_builder }}"
+    pkg_aur_builder: makepkg
+
+- name: pacman - AUR Full Upgrade
+  aur:
+    use: "{{ aur_builder }}"
+    upgrade: true
+  become: true
+  become_user: "{{ aur_user }}"
+  environment:
+    LANG: en_US.UTF-8

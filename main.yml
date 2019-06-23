@@ -2,4 +2,5 @@
   hosts:
     - 127.0.0.1
   become: true
-  tasks:
+  roles:
+    - { role: linux-common, tags: [ 'core' ], when: ansible_system == "Linux" }

@@ -1,0 +1,30 @@
+- name: pacman (WSL) - Check fakeroot-tcp
+  command: pacman -Qq fakeroot-tcp
+  ignore_errors: true
+  register: fakeroot
+  changed_when: false
+
+- name: pacman (WSL) - Install Temporary fakeroot
+  import_tasks: pacman-wsl-fakeroot.yml
+  when: fakeroot.rc == 1
+
+- name: pacman (WSL) - Change AUR user to WSL user
+  set_fact:
+    aur_user: "{{ wsl_user }}"
+
+- name: pacman (WSL) - Install fakeroot-tcp
+  include_role:
+    name: pkg_install
+  vars:
+    pkg_aur_name: fakeroot-tcp
+    pkg_aur_builder: makepkg
+    pkg_aur_path: /opt/fakeroot/bin:/usr/bin/vendor_perl:{{ ansible_env.PATH }}
+
+- name: pacman (WSL) - Cleanup Temporary fakeroot
+  file:
+    state: absent
+    path: "{{ item }}"
+  with_items:
+    - /tmp/fakeroot_1.22.orig.tar.bz2
+    - /tmp/fakeroot-1.22
+    - /opt/fakeroot

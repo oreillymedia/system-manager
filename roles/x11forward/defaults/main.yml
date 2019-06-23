@@ -1,2 +1,3 @@
-copy_x11_script: false
-enable_x11_forwarding: false
+x11forward_copy_script: false
+x11forward_enable_forwarding: false
+x11forward_host_aliases:

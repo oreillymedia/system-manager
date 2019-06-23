@@ -1,0 +1,5 @@
+pacman_distros:
+  - Archlinux
+apt_distros:
+  - Kali GNU/Linux
+  - Ubuntu

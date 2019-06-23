@@ -1,0 +1,13 @@
+- name: pacman install packages
+  pacman:
+    name: {{ pkg_names }}
+    state: present
+  when: ansible_distribution in pacman_distros and not pkg_aur_names|bool
+
+- name: aur install packages
+  aur:
+    name: "{{ item }}"
+    use: "{{ aur_builder }}"
+    skip_installed: true
+  with_items: pkg_aur_names
+  when: ansible_distribution in pacman_distros and pkg_aur_names|bool

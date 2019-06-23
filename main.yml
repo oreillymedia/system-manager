@@ -1,0 +1,10 @@
+- name: Main
+  hosts:
+    - 127.0.0.1
+  become: true
+  tasks:
+  - name: aur Install test
+    aur:
+      name: onedrive
+      use: "{{ aur_builder | default('pikaur') }}"
+      skip_installed: true

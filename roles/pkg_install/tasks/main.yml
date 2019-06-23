@@ -1,13 +1,28 @@
-- name: pacman install packages
-  pacman:
-    name: {{ pkg_names }}
-    state: present
-  when: ansible_distribution in pacman_distros and not pkg_aur_names|bool
+- set_fact:
+    pkg_use_aur: "{{ pkg_aur_name != 'none' }}"
 
-- name: aur install packages
+- debug:
+    msg:
+    - "Package Install Vars"
+    - "pkg_name: '{{ pkg_name }}'"
+    - "pkg_aur_name: '{{ pkg_aur_name }}' (use: {{ pkg_use_aur }})"
+    - "pkg_aur_builder: '{{ pkg_aur_builder }}'"
+    verbosity: 1
+
+- name: pacman - install packages
+  pacman:
+    name: "{{ pkg_name }}"
+    state: present
+  when:
+  - ansible_distribution in pacman_distros
+  - not pkg_use_aur|bool
+
+- name: aur - install packages
   aur:
     name: "{{ item }}"
-    use: "{{ aur_builder }}"
+    use: "{{ pkg_aur_builder }}"
     skip_installed: true
-  with_items: pkg_aur_names
-  when: ansible_distribution in pacman_distros and pkg_aur_names|bool
+  with_items: "{{ pkg_aur_name }}"
+  when:
+  - ansible_distribution in pacman_distros
+  - pkg_use_aur|bool

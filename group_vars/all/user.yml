@@ -1,1 +1,3 @@
-aur_builder: pikaur
+# must be one of the AUR Helpers supported by ansible-aur: https://github.com/kewlfft/ansible-aur
+# yay, aurman, pacaur, trizen, pikaur
+pkg_aur_builder: pikaur

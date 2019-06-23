@@ -1,3 +1,8 @@
+# username of main user you do everything as
+local_user: cbailey
+
+# Standard system locale
+# https://wiki.archlinux.org/index.php/Locale
 system_locale: en_US.UTF-8
 
 # must be one of the AUR Helpers supported by ansible-aur: https://github.com/kewlfft/ansible-aur

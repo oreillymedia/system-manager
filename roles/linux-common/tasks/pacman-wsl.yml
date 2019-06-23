@@ -8,9 +8,10 @@
   import_tasks: pacman-wsl-fakeroot.yml
   when: fakeroot.rc == 1
 
+# TODO: WSL has some issues running AUR as another user
 - name: pacman (WSL) - Change AUR user to WSL user
   set_fact:
-    aur_user: "{{ wsl_user }}"
+    aur_user: "{{ local_user }}"
 
 - name: pacman (WSL) - Install fakeroot-tcp
   include_role:

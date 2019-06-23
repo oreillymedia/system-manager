@@ -1,7 +1,7 @@
 ## General Settings
 
 # username of main user you do everything as
-local_user: cbailey
+local_user: username
 
 # Standard system locale
 # https://wiki.archlinux.org/index.php/Locale
@@ -26,9 +26,6 @@ x11_copy_script: true
 # dictionary of short names for various SSH hosts for X11 helper script
 x11_host_aliases:
  - { alias: local, host: 127.0.0.1 }
- - { alias: work, host: work.angellus.wl.mort.is }
- - { alias: server, host: server.wl.mort.is }
- - { alias: de, host: de.mort.is }
 
 # Enable X11 forwaring over SSH on your local system. You must be running sshd for this to work
 x11_enable_forwarding: true

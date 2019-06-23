@@ -4,3 +4,8 @@
   become: true
   roles:
     - { role: linux-common, tags: [ 'core' ], when: ansible_system == "Linux" }
+    - { role: x11forward,
+        x11forward_copy_script: "{{ x11_copy_script }}",
+        x11forward_enable_forwarding: "{{ x11_enable_forwarding }}",
+        x11forward_host_aliases: "{{ x11_host_aliases }}",
+        tags: [ 'core', 'x11' ] }

@@ -1,0 +1,37 @@
+#!/bin/bash
+
+host="$1"
+command="$2"
+do_debug=false
+
+if [[ "$#" == "3" ]]; then
+    if [[ "$3" == "-d" ]]; then
+        do_debug=true
+    fi
+fi
+
+{# if [[ "$host" == "work" ]]; then
+    if [[ "$command" == "code" ]]; then
+        if [[ $do_debug = true ]]; then
+            command="LD_LIBRARY_PATH=$HOME/.lib code --verbose"
+        else
+            command="LD_LIBRARY_PATH=$HOME/.lib code"
+        fi
+    fi
+fi #}
+
+if [[ $do_debug = true ]] && [[ "$command" == "code" ]]; then
+    command="code --verbose"
+fi
+
+{% for item in x11forward_host_aliases %}
+if [[ "$host" == "{{ item['alias'] }}" ]]; then
+    host="{{ item['host'] }}"
+fi
+{% endfor %}
+
+if [[ $do_debug = true ]]; then
+    env USE_TMUX=false USE_XONSH=false ssh -o SendEnv=USE_TMUX -o SendEnv=USE_XONSH -CAY "$host" "$command" &
+else
+    env USE_TMUX=false USE_XONSH=false ssh -o SendEnv=USE_TMUX -o SendEnv=USE_XONSH -CAY "$host" "$command" >/dev/null 2>&1 &
+fi

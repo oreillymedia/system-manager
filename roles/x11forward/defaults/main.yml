@@ -1,0 +1,2 @@
+copy_x11_script: false
+enable_x11_forwarding: false

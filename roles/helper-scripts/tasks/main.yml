@@ -51,6 +51,6 @@
     src: gpg-remote.sh.j2
     dest: /usr/local/bin/gpg-remote
     mode: 0555
- when:
+  when:
     - helper_gpg_local_agent != 'none'
     - helper_gpg_remote_agent != 'none'

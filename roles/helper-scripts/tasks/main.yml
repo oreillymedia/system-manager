@@ -3,7 +3,7 @@
     src: x11.sh.j2
     dest: /usr/local/bin/x11
     mode: 0555
-  when: x11forward_copy_script|bool
+  when: helper_x11_copy_script|bool
 
 - name: Enable X11 Fowarding
   lineinfile:
@@ -27,5 +27,28 @@
         line: "AcceptEnv LANG LC_* USE_*",
         insertafter: "#Banner ",
       }
-  when: x11forward_enable_forwarding|bool
+  when: helper_x11_enable_forwarding|bool
   notify: restart sshd
+
+- name: Copy Tmux Script
+  template:
+    src: tmux-session.sh.j2
+    dest: /usr/local/bin/tmux-session
+    mode: 0555
+  when: use_tmux|bool
+
+- name: Copy gpg-session Script
+  template:
+    src: gpg-session.sh.j2
+    dest: /usr/local/bin/gpg-session
+    mode: 0555
+  when:
+    - wsl_npiperelay_path != 'none'
+    - windows_gpg_agent != 'none'
+
+- name: Copy gpg-remote Script
+  template:
+    src: gpg-remote.sh.j2
+    dest: /usr/local/bin/gpg-remote
+    mode: 0555
+  when: copy_gpg_script|bool

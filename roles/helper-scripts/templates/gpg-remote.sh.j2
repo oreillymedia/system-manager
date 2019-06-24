@@ -1,0 +1,11 @@
+#!/bin/bash
+
+host="$1"
+
+{% for item in helper_host_aliases %}
+if [[ "$host" == "{{ item['alias'] }}" ]]; then
+    host="{{ item['host'] }}"
+fi
+{% endfor %}
+
+env USE_TMUX=false USE_XONSH=false ssh -o SendEnv=USE_TMUX -o SendEnv=USE_XONSH -R/run/user/1000/gnupg/S.gpg-agent:/home/cbailey/.gnupg/S.gpg-agent "$host"

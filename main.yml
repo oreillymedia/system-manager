@@ -3,6 +3,8 @@
     - 127.0.0.1
   become: true
   vars:
+    users_to_configure:
+      - root
   pre_tasks:
     - set_fact:
         users_to_configure: "{{ [ local_user ] }}"
@@ -22,11 +24,12 @@
       tags: [ 'user' ]
   roles:
     - { role: linux-common, tags: [ 'core' ], when: ansible_system == "Linux" }
-    - { role: x11forward,
-        x11forward_copy_script: "{{ x11_copy_script }}",
-        x11forward_enable_forwarding: "{{ x11_enable_forwarding }}",
-        x11forward_host_aliases: "{{ x11_host_aliases }}",
-        tags: [ 'core', 'x11' ] }
+    - { role: helper-scripts,
+        helper_x11_copy_script: "{{ x11_copy_script }}",
+        helper_x11_enable_forwarding: "{{ x11_enable_forwarding }}",
+        helper_host_aliases: "{{ host_aliases }}",
+        helper_gpg_copy_script: "{{ copy_gpg_script }}",
+        tags: [ 'core', 'helpers' ] }
     - { role: user-setup,
         user_default_shell: "{{ default_shell }}",
         user_shells: "{{ enabled_shells }}",

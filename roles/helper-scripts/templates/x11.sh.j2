@@ -25,7 +25,7 @@ if [[ $do_debug = true ]] && [[ "$command" == "code" ]]; then
     command="code --verbose"
 fi
 
-{% for item in x11forward_host_aliases %}
+{% for item in helper_host_aliases %}
 if [[ "$host" == "{{ item['alias'] }}" ]]; then
     host="{{ item['host'] }}"
 fi

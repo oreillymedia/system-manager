@@ -21,6 +21,11 @@ if [ -r /etc/environment ]; then
     source /etc/environment
 fi
 
+{% if user_wsl_enable_gpg %}
+# started bridge for GPG Agent
+gpg-session
+{% endif %}
+
 # init secondary shell
 {% if user_secondary_shell == 'xonsh' %}
 if [ "$USE_XONSH" = true ]; then

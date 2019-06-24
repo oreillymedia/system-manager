@@ -1,0 +1,4 @@
+helper_x11_copy_script: false
+helper_x11_enable_forwarding: false
+helper_host_aliases:
+helper_gpg_copy_script: false

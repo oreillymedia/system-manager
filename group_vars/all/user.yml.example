@@ -42,8 +42,8 @@ aur_user: aur
 # X11 applications on your local
 x11_copy_script: true
 
-# dictionary of short names for various SSH hosts for X11 helper script
-x11_host_aliases:
+# dictionary of short names for various SSH hosts for X11/GPG helper scripts
+host_aliases:
  - { alias: local, host: 127.0.0.1 }
 
 # Enable X11 forwaring over SSH on your local system. You must be running
@@ -76,3 +76,13 @@ git_name: none
 
 # public GPG signing key to use for git
 git_signing_key: none
+
+## GPG Helper settings
+
+# Copies gpg-remote helper script to easily forward GPG Agent to remote hosts
+copy_gpg_script: true
+
+# WSL specific GPG settings to get Windows 10 GPG Agent in WSL
+# See https://codingnest.com/how-to-use-gpg-with-yubikey-wsl/ for setup
+wsl_npiperelay_path: none
+windows_gpg_agent: none

@@ -2,6 +2,24 @@
   hosts:
     - 127.0.0.1
   become: true
+  vars:
+  pre_tasks:
+    - set_fact:
+        users_to_configure: "{{ [ local_user ] }}"
+        powerline_prompt_bg_colors: "{
+          '{{ local_user }}': '{{ powerline_prompt_bg_color }}',
+          'root': '{{ powerline_prompt_bg_color_root }}'
+          }"
+        powerline_xonsh_prompt_bg_colors: "{
+          '{{ local_user }}': '{{ powerline_xonsh_prompt_bg_color }}',
+          'root': '{{ powerline_xonsh_prompt_bg_color_root }}'
+          }"
+      tags: [ 'user' ]
+
+    - set_fact:
+        users_to_configure: "{{ [ local_user ] + [ 'root' ] }}"
+      when: configure_root|bool
+      tags: [ 'user' ]
   roles:
     - { role: linux-common, tags: [ 'core' ], when: ansible_system == "Linux" }
     - { role: x11forward,
@@ -9,3 +27,18 @@
         x11forward_enable_forwarding: "{{ x11_enable_forwarding }}",
         x11forward_host_aliases: "{{ x11_host_aliases }}",
         tags: [ 'core', 'x11' ] }
+    - { role: user-setup,
+        user_default_shell: "{{ default_shell }}",
+        user_shells: "{{ enabled_shells }}",
+        user_secondary_shell: "{{ secondary_shell }}",
+        user_users: "{{ users_to_configure }}",
+        user_git_email: "{{ git_email }}",
+        user_git_name: "{{ git_name }}",
+        user_git_signing_key: "{{ git_signing_key }}",
+        user_use_tmux: "{{ use_tmux }}",
+        user_use_powerline: "{{ use_powerline }}",
+        user_powerline_colorscheme: "{{ powerline_colorscheme }}",
+        user_powerline_prompt_bg_colors: "{{ powerline_prompt_bg_colors }}",
+        user_powerline_xonsh_prompt_bg_colors: "{{ powerline_xonsh_prompt_bg_colors }}",
+        tags: [ 'user' ],
+      }

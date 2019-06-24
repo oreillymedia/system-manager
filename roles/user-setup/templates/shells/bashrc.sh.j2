@@ -1,0 +1,79 @@
+# Disable tmux and secondary shell for VS Code server
+if [ -n "${VSCODE_AGENT_FOLDER+1}" ]; then
+{% if user_secondary_shell == 'xonsh' %}
+    export USE_XONSH=false
+{% endif %}
+    export USE_TMUX=false
+fi
+
+# interactive check
+[[ $- != *i* ]] && return
+
+# init secondary shell vars
+{% if user_secondary_shell == 'xonsh' %}
+if [ -z ${USE_XONSH+x} ]; then
+    export USE_XONSH=true
+fi
+{% endif %}
+
+# load system environment
+if [ -r /etc/environment ]; then
+    source /etc/environment
+fi
+
+# init secondary shell
+{% if user_secondary_shell == 'xonsh' %}
+if [ "$USE_XONSH" = true ]; then
+    xonsh && exit
+fi
+{% endif %}
+
+{% if user_use_tmux %}
+# init tmux start variable
+if [ -z ${USE_TMUX+x} ]; then
+    export USE_TMUX=true
+fi
+{% endif %}
+
+# envs
+export LS_COLORS='rs=0:di=01;36:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:'
+export EDITOR='vim'
+export VISUAL='vim'
+export PATH=$HOME/.bin:$HOME/.local/bin:/usr/local/bin:$PATH
+{% if user_use_tmux %}
+export SSH_AUTH_SOCK=$HOME/.ssh/ssh_auth_sock
+{% endif %}
+
+# Coloured man page support
+# using 'less' env vars (format is '\E[<brightness>;<colour>m')
+export LESS_TERMCAP_mb="\033[01;31m"     # begin blinking
+export LESS_TERMCAP_md="\033[01;31m"     # begin bold
+export LESS_TERMCAP_me="\033[0m"         # end mode
+export LESS_TERMCAP_so="\033[01;44;36m"  # begin standout-mode (bottom of screen)
+export LESS_TERMCAP_se="\033[0m"         # end standout-mode
+export LESS_TERMCAP_us="\033[00;36m"     # begin underline
+export LESS_TERMCAP_ue="\033[0m"         # end underline
+
+# aliases
+alias la='ls -la'
+alias reloadsh='source ~/.bashrc'
+
+{% if user_use_powerline %}
+# powerline envs
+powerline-daemon -q --replace
+POWERLINE_BASH_CONTINUATION=1
+POWERLINE_BASH_SELECT=1
+source {{ user_python_base }}/powerline/bindings/bash/powerline.sh
+{% endif %}
+
+# load system specific local configs
+if [ -r ~/.local/bashrc ]; then
+    source ~/.local/bashrc
+fi
+
+{% if user_use_tmux %}
+# auto-start tmux
+if [ "$USE_TMUX" = true ]; then
+    tmux-session
+fi
+{% endif %}

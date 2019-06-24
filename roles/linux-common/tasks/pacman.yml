@@ -71,7 +71,7 @@
 
 - name: pacman - Install {{ aur_builder }}
   include_role:
-    name: pkg_install
+    name: pkg-install
   vars:
     pkg_aur_name: "{{ aur_builder }}"
     pkg_aur_builder: makepkg

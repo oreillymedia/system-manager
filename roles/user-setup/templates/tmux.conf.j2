@@ -1,0 +1,20 @@
+{% if user_use_powerline %}
+source {{ user_python_base }}/powerline/bindings/tmux/powerline.conf
+{% endif %}
+
+set -g default-terminal "screen-256color"
+set -g terminal-overrides 'xterm:colors=256'
+if-shell '[ $(echo "$(tmux -V | cut -d" " -f2) >= 2.1" | bc) -eq 1 ]' 'set -g mouse on'
+if-shell '[ $(echo "$(tmux -V | cut -d" " -f2) <= 2.1" | bc) -eq 1 ]' 'set -g mode-mouse on'
+if-shell '[ $(echo "$(tmux -V | cut -d" " -f2) <= 2.1" | bc) -eq 1 ]' 'set -g mouse-resize-pane on'
+if-shell '[ $(echo "$(tmux -V | cut -d" " -f2) <= 2.1" | bc) -eq 1 ]' 'set -g mouse-select-pane on'
+if-shell '[ $(echo "$(tmux -V | cut -d" " -f2) <= 2.1" | bc) -eq 1 ]' 'set -g mouse-select-window on'
+set -g history-limit 30000
+# pane movement
+bind-key j command-prompt -p "join pane from:"  "join-pane -h -s '%%'"
+bind-key s command-prompt -p "send pane to:"  "join-pane -t '%%'"
+bind-key b break-pane
+
+{% if user_use_powerline %}
+set -g status-right '#(env "$POWERLINE_COMMAND" $POWERLINE_COMMAND_ARGS tmux right -R pane_id=\"`tmux display -p "#""D"`\")'
+{% endif %}

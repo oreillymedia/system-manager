@@ -1,0 +1,100 @@
+# envs
+$LS_COLORS = 'rs=0:di=01;36:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:'
+$EDITOR = "vim"
+$VISUAL = "vim"
+$SHELL_TYPE = "prompt_toolkit"
+{% if user_use_tmux %}
+$SSH_AUTH_SOCK = $HOME + "/.ssh/ssh_auth_sock"
+{% endif %}
+
+# path variable
+$PATH.insert(0, '/usr/local/bin')
+$PATH.insert(0, '~/.local/bin')
+$PATH.insert(0, '~/.bin')
+
+# Coloured man page support
+# using 'less' env vars (format is '\E[<brightness>;<colour>m')
+$LESS_TERMCAP_mb = "\033[01;31m"     # begin blinking
+$LESS_TERMCAP_md = "\033[01;31m"     # begin bold
+$LESS_TERMCAP_me = "\033[0m"         # end mode
+$LESS_TERMCAP_so = "\033[01;44;36m"  # begin standout-mode (bottom of screen)
+$LESS_TERMCAP_se = "\033[0m"         # end standout-mode
+$LESS_TERMCAP_us = "\033[00;36m"     # begin underline
+$LESS_TERMCAP_ue = "\033[0m"         # end underline
+
+# xonsh envs
+$PROJECT_DIRS = ["~/dev"]
+$MOUSE_SUPPORT = True
+# $XONSH_COLOR_STYLE = 'monokai'
+
+{% if user_use_powerline %}
+# powerline envs
+$PTK_STYLE_OVERRIDES['bottom-toolbar'] = 'noreverse'
+$PL_TOOLBAR = 'who>virtualenv>branch>cwd>full_proc'
+$PL_COLORS = {
+    'history': ('WHITE', '#0087af'),
+    'time': ('WHITE', '#333'),
+    'short_cwd': ('WHITE', '{{ user_powerline_xonsh_prompt_bg_color }}'),
+    'cwd': ('WHITE', '#333'),
+    'cwd_git': ('BLUE', 'WHITE'),
+    # branch always green/red
+    'virtualenv': ('INTENSE_CYAN', 'BLUE'),
+    'rtns': ('WHITE', 'RED'),
+    # full_rtns always red/gray
+    'timing': ('WHITE', '#444'),
+    # full_proc always red/gray
+    'who': ('WHITE', '{{ user_powerline_xonsh_prompt_bg_color }}')
+}
+{% endif %}
+
+{% if user_use_tmux %}
+# tmux
+if not __xonsh__.env.get('USE_TMUX'):
+    $USE_TMUX = True
+elif $USE_TMUX == "true":
+    $USE_TMUX = True
+else:
+    $USE_TMUX = False
+{% endif %}
+
+
+# bash override method
+def start_bash(args, stdin=None):
+    with ${...}.swap(USE_XONSH='false'):
+        /bin/bash
+    return
+
+
+def start_zsh(args, stdin=None):
+    with ${...}.swap(USE_XONSH='false'):
+        /bin/zsh
+    return
+
+
+# aliases
+aliases['la'] = 'ls -la'
+aliases['reloadsh'] = 'source ~/.xonshrc'
+aliases['bash'] = start_bash
+aliases['zsh'] = start_zsh
+
+# xontribs
+xontrib load autoxsh
+xontrib load avox
+# xontrib load click_tabcomplete
+xontrib load coreutils
+{% if user_use_powerline %}
+xontrib load powerline
+{% endif %}
+xontrib load vox
+# xontrib load vox_tabcomplete
+xontrib load whole_word_jumping
+
+# load system specific local configs
+if !(test -f @($HOME+'/.local/xonshrc')):
+    source $HOME/.local/xonshrc
+
+{% if user_use_tmux %}
+# auto-start tmux
+if $USE_TMUX:
+    tmux-session;
+{% endif %}

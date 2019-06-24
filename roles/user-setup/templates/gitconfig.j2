@@ -1,0 +1,32 @@
+[user]
+  email = {{ user_git_email }}
+  name = {{ user_git_name }}
+{% if user_configure_signing %}
+  signingkey = {{ user_git_signing_key }}
+{% endif %}
+
+[color]
+  branch = auto
+  diff = auto
+  status = auto
+
+[color "branch"]
+  current = yellow reverse
+  local = yellow
+  remote = green
+
+[color "diff"]
+  meta = yellow bold
+  frag = magenta bold
+  old = red bold
+  new = green bold
+
+[color "status"]
+  added = yellow
+  changed = green
+  untracked = cyan
+
+{% if user_configure_signing %}
+[commit]
+  gpgsign = true
+{% endif %}

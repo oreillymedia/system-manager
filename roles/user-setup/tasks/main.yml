@@ -1,0 +1,120 @@
+- set_fact:
+    user_has_secondary_shell: "{{ user_secondary_shell != 'none' }}"
+    user_install_xonsh: "{{ 'xonsh' in user_shells }}"
+    user_install_bash: "{{ 'bash' in user_shells }}"
+    user_install_zsh: "{{ 'zsh' in user_shells }}"
+
+- name: Validate shell type
+  assert:
+    that: item in user_supported_shells
+    msg: 'Supported Shell types: {{ user_supported_shells }}'
+  with_items: "{{ user_shells }}"
+
+- name: Validate default shell type
+  assert:
+    that: user_default_shell in user_default_shells
+    msg: 'Supported Default Shell types: {{ user_default_shells }}'
+
+- name: Validate secondary shell type
+  assert:
+    that:
+    - user_secondary_shell in user_secondary_shells
+    - user_secondary_shell in user_shells
+    msg: 'Supported Seconary Shell types: {{ user_secondary_shells }}, must also be in user_shells'
+  when: user_has_secondary_shell|bool
+
+- name: Users to configure
+  debug:
+    var: user_users
+
+- name: Get python3 Version
+  shell: "python3 --version | sed 's/Python \\([0-9]*.[0-9]*\\).[0-9]/\\1/' | tr -d '\n'"
+  register: py_version
+  changed_when: false
+
+- name: Set python_base (site-packages)
+  set_fact:
+    user_python_base: /usr/lib/python{{ py_version.stdout }}/site-packages
+  when: ansible_distribution in pacman_distros
+
+- name: Set python_base (dist-packages)
+  set_fact:
+    user_python_base: /usr/local/lib/python{{ py_version.stdout }}/dist-packages
+  when: ansible_distribution in apt_distros
+
+- name: Print python_base
+  debug:
+    msg: "{{ user_python_base }}"
+    verbosity: 1
+
+- name: Install tmux
+  include_role:
+    name: pkg-install
+  vars:
+    pkg_name: tmux
+  when: user_use_tmux|bool
+
+- name: Install powerline
+  include_role:
+    name: pkg-install
+  vars:
+    pkg_name:
+    - powerline
+    - powerline-fonts
+  when: user_use_powerline|bool
+
+- name: Install xonsh
+  include_role:
+    name: pkg-install
+  vars:
+    pkg_name:
+    - xonsh
+    - python-prompt_toolkit
+    - python-pygments
+    - python-distro
+    - python-setproctitle
+  when: user_install_xonsh|bool
+
+- name: Install xonsh extras
+  pip:
+    name:
+        - xonsh-autoxsh
+        - git+https://github.com/AngellusMortis/xontrib-avox.git
+        # - xonsh-click-tabcomplete
+        # - git+https://github.com/AngellusMortis/xonsh-vox-tabcomplete.git
+    extra_args: --upgrade
+    executable: pip3
+  when: user_install_xonsh|bool
+
+- name: Install xonsh powerline
+  pip:
+    name: git+https://github.com/AngellusMortis/xontrib-powerline.git@colors
+    extra_args: --upgrade
+    executable: pip3
+  when:
+  - user_install_xonsh|bool
+  - user_use_powerline|bool
+
+- name: Install zsh
+  include_role:
+    name: pkg-install
+  vars:
+    pkg_name:
+    - zsh
+  when: user_install_zsh|bool
+
+# TODO: Integrate: https://github.com/aur-archive/zpython3-git/blob/master/PKGBUILD
+
+- name: Install bash
+  include_role:
+    name: pkg-install
+  vars:
+    pkg_name:
+    - bash
+  when: user_install_bash|bool
+
+- name: Configure Users
+  include: user.yml
+  with_items: "{{ user_users }}"
+  loop_control:
+    loop_var: user_user

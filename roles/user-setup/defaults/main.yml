@@ -1,0 +1,23 @@
+user_default_shell: bash
+user_secondary_shell: none
+user_shells:
+  - bash
+user_supported_shells:
+  - xonsh
+  - bash
+  - zsh
+user_default_shells:
+  - bash
+  - zsh
+user_secondary_shells:
+  - xonsh
+user_users:
+  - root
+user_git_email: none
+user_git_name: none
+user_git_signing_key: none
+user_use_tmux: false
+user_use_powerline: false
+user_powerline_colorscheme: default
+user_powerline_prompt_bg_colors: { root: 'red' }
+user_powerline_xonsh_prompt_bg_colors: { root: 'RED' }

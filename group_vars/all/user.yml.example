@@ -85,4 +85,4 @@ copy_gpg_script: true
 # WSL specific GPG settings to get Windows 10 GPG Agent in WSL
 # See https://codingnest.com/how-to-use-gpg-with-yubikey-wsl/ for setup
 wsl_npiperelay_path: none
-windows_gpg_agent: none
+windows_gpg_agent_path: none

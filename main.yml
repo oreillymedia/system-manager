@@ -24,12 +24,16 @@
       tags: [ 'user' ]
   roles:
     - { role: linux-common, tags: [ 'core' ], when: ansible_system == "Linux" }
+
     - { role: helper-scripts,
         helper_x11_copy_script: "{{ x11_copy_script }}",
         helper_x11_enable_forwarding: "{{ x11_enable_forwarding }}",
         helper_host_aliases: "{{ host_aliases }}",
         helper_gpg_copy_script: "{{ copy_gpg_script }}",
+        helper_wsl_npiperelay_path: "{{ wsl_npiperelay_path }}",
+        helper_windows_gpg_agent_path: "{{ windows_gpg_agent_path }}",
         tags: [ 'core', 'helpers' ] }
+
     - { role: user-setup,
         user_default_shell: "{{ default_shell }}",
         user_shells: "{{ enabled_shells }}",

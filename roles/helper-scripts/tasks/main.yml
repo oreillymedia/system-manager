@@ -43,8 +43,8 @@
     dest: /usr/local/bin/gpg-session
     mode: 0555
   when:
-    - wsl_npiperelay_path != 'none'
-    - windows_gpg_agent != 'none'
+    - helper_wsl_npiperelay_path != 'none'
+    - helper_windows_gpg_agent_path != 'none'
 
 - name: Copy gpg-remote Script
   template:

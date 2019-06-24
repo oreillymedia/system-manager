@@ -79,8 +79,11 @@ git_signing_key: none
 
 ## GPG Helper settings
 
-# Copies gpg-remote helper script to easily forward GPG Agent to remote hosts
-copy_gpg_script: true
+# Location of GPG agents for gpg-remote helper script
+# default location locally is /run/user/1000/gnupg/S.gpg-agent
+#   where 1000 = your user's uid
+gpg_local_agent: none
+gpg_remote_agent: none
 
 # WSL specific GPG settings to get Windows 10 GPG Agent in WSL
 # See https://codingnest.com/how-to-use-gpg-with-yubikey-wsl/ for setup

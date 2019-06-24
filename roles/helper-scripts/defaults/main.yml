@@ -5,3 +5,5 @@ helper_gpg_copy_script: false
 helper_wsl_npiperelay_path: none
 helper_windows_gpg_agent_path: none
 helper_tmux_copy_script: false
+helper_gpg_local_agent: none
+helper_gpg_remote_agent: none

@@ -35,7 +35,7 @@
     src: tmux-session.sh.j2
     dest: /usr/local/bin/tmux-session
     mode: 0555
-  when: use_tmux|bool
+  when: helper_tmux_copy_script|bool
 
 - name: Copy gpg-session Script
   template:
@@ -51,4 +51,4 @@
     src: gpg-remote.sh.j2
     dest: /usr/local/bin/gpg-remote
     mode: 0555
-  when: copy_gpg_script|bool
+  when: helper_gpg_copy_script|bool

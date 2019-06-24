@@ -30,6 +30,7 @@
         helper_x11_enable_forwarding: "{{ x11_enable_forwarding }}",
         helper_host_aliases: "{{ host_aliases }}",
         helper_gpg_copy_script: "{{ copy_gpg_script }}",
+        helper_tmux_copy_script: "{{ use_tmux }}",
         helper_wsl_npiperelay_path: "{{ wsl_npiperelay_path }}",
         helper_windows_gpg_agent_path: "{{ windows_gpg_agent_path }}",
         tags: [ 'core', 'helpers' ] }

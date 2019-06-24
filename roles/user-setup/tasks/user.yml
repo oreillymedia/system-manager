@@ -7,7 +7,7 @@
     user_configure_signing: "{{ user_git_signing_key != 'none' }}"
     user_powerline_prompt_bg_color: "{{ user_powerline_prompt_bg_colors[user_user] }}"
     user_powerline_xonsh_prompt_bg_color: "{{ user_powerline_xonsh_prompt_bg_colors[user_user] }}"
-    user_wsl_enable_gpg: "{{ wsl_npiperelay_path != 'none' and windows_gpg_agent != 'none' }}"
+    user_wsl_enable_gpg: "{{ wsl_npiperelay_path != 'none' and windows_gpg_agent_path != 'none' }}"
 
 - name: Create user Directories
   file:

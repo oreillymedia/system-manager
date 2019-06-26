@@ -24,6 +24,7 @@ powerline_prompt_bg_color_root: 'red'
 powerline_xonsh_prompt_bg_color: '#0087af'
 powerline_xonsh_prompt_bg_color_root: 'RED'
 
+
 ## Pacman AUR settings
 
 # must be one of the AUR Helpers supported by ansible-aur:
@@ -35,6 +36,7 @@ aur_builder: pikaur
 # will automatically be created and given correct permissions
 # should not be main user as it will also be excluded from Login Screen
 aur_user: aur
+
 
 ## X11 Forwarding settings
 
@@ -49,6 +51,7 @@ host_aliases:
 # Enable X11 forwaring over SSH on your local system. You must be running
 # sshd for this to work
 x11_enable_forwarding: true
+
 
 ## Shell settings
 
@@ -68,6 +71,7 @@ enabled_shells:
   - bash
   - zsh
 
+
 ## Git Settings
 
 # name and email for git, both must be configure to set .git_config
@@ -76,6 +80,7 @@ git_name: none
 
 # public GPG signing key to use for git
 git_signing_key: none
+
 
 ## GPG Helper settings
 
@@ -89,3 +94,28 @@ gpg_remote_agent: none
 # See https://codingnest.com/how-to-use-gpg-with-yubikey-wsl/ for setup
 wsl_npiperelay_path: none
 windows_gpg_agent_path: none
+
+
+## Cloud Provider Settings
+
+# cloud provider(s) to configure
+# supported: onedrive
+cloud_providers:
+- onedrive
+
+# Absolute path to sync list file
+# https://github.com/abraunegg/onedrive/blob/master/docs/USAGE.md#selective-sync
+onedrive_sync_list: none
+
+
+## Desktop Settings
+
+# DEs to install and setup
+# supported DEs: kde
+# only applies to Linux
+desktop_environments:
+- kde
+
+# Default DE to use
+# only applies to Linux
+default_desktop_environment: kde

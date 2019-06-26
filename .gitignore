@@ -1,3 +1,6 @@
+user/*
+!user/.gitkeep
+
 group_vars/all/user.yml
 
 # Created by https://www.gitignore.io/api/ansible

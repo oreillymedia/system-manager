@@ -1,14 +1,14 @@
-- set_fact:
-    user_has_secondary_shell: "{{ user_secondary_shell != 'none' }}"
-    user_install_xonsh: "{{ 'xonsh' in user_shells }}"
-    user_install_bash: "{{ 'bash' in user_shells }}"
-    user_install_zsh: "{{ 'zsh' in user_shells }}"
-
 - name: Validate shell type
   assert:
     that: item in user_supported_shells
     msg: 'Supported Shell types: {{ user_supported_shells }}'
   with_items: "{{ user_shells }}"
+
+- set_fact:
+    user_has_secondary_shell: "{{ user_secondary_shell != 'none' }}"
+    user_install_xonsh: "{{ 'xonsh' in user_shells }}"
+    user_install_bash: "{{ 'bash' in user_shells }}"
+    user_install_zsh: "{{ 'zsh' in user_shells }}"
 
 - name: Validate default shell type
   assert:

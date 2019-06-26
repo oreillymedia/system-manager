@@ -1,0 +1,5 @@
+linux_desktop_default_environment: kde
+linux_desktop_environments:
+- kde
+linux_desktop_supported_environments:
+- kde

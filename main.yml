@@ -23,7 +23,10 @@
       when: configure_root|bool
       tags: [ 'user' ]
   roles:
-    - { role: linux-common, tags: [ 'core' ], when: ansible_system == "Linux" }
+    - { role: linux-common,
+        tags: [ 'core' ],
+        when: ansible_system == "Linux"
+      }
 
     - { role: helper-scripts,
         helper_x11_copy_script: "{{ x11_copy_script }}",
@@ -50,4 +53,19 @@
         user_powerline_prompt_bg_colors: "{{ powerline_prompt_bg_colors }}",
         user_powerline_xonsh_prompt_bg_colors: "{{ powerline_xonsh_prompt_bg_colors }}",
         tags: [ 'user' ],
+      }
+
+    - { role: cloud-setup,
+        cloud_provider: "{{ cloud_provider }}",
+        cloud_user: "{{ local_user }}",
+        cloud_onedrive_sync_list: "{{ onedrive_sync_list }}",
+        tags: [ 'user', 'cloud' ],
+      }
+
+    - { role: linux-desktop,
+        linux_desktop_user: "{{ local_user }}",
+        linux_desktop_default_environment: "{{ default_desktop_environment }}",
+        linux_desktop_environments: "{{ desktop_environments }}",
+        tags: [ 'desktop' ],
+        when: ansible_system == "Linux"
       }

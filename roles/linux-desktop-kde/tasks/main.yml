@@ -1,0 +1,73 @@
+- name: Install Desktop
+  include_role:
+    name: pkg-install
+  vars:
+    pkg_name:
+    - xorg
+    - mesa
+    - xf86-video-nouveau
+    - xf86-video-intel
+    - sddm
+    - sddm-kcm
+    - plasma
+    - kde-applications
+    - chromium
+    - ttf-dejavu
+    - ttf-liberation
+    - networkmanager
+    - nm-connection-editor
+    - plasma-nm
+
+- name: systemd Enable desktop
+  systemd:
+    name: "{{ item }}"
+    daemon_reload: true
+    enabled: true
+    state: started
+  with_items:
+  - sddm
+  - NetworkManager
+  when: linux_desktop_kde_enable|bool
+
+- name: Add nouveau to mkinitcpio
+  lineinfile:
+    path: /etc/mkinitcpio.conf
+    regexp: '^MODULES='
+    line: MODULES=(nouveau)
+  notify: regenerate mkinitcpio
+
+- name: Make System Dirs
+  file:
+    path: "{{ item }}"
+    state: directory
+    recurse: true
+  with_items:
+    - /etc/sddm.conf.d/
+
+- name: Copy System Configs
+  template:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+  with_items:
+    - { src: hide_aur.conf, dest: /etc/sddm.conf.d/hide_aur.conf }
+
+- name: Make User Dirs
+  file:
+    path: "{{ item }}"
+    state: directory
+    recurse: true
+    owner: "{{ linux_desktop_user }}"
+    group: "{{ linux_desktop_user }}"
+  with_items:
+    - ~{{ linux_desktop_user }}/.config
+    - ~{{ linux_desktop_user }}/.local/share/konsole
+
+- name: Copy User Configs
+  template:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    owner: "{{ linux_desktop_user }}"
+    group: "{{ linux_desktop_user }}"
+  with_items:
+    - { src: konsole/profile.profile, dest: "~{{ linux_desktop_user }}/.local/share/konsole/Profile 1.profile" }
+    - { src: konsole/rc, dest: "~{{ linux_desktop_user }}/.config/konsolerc" }

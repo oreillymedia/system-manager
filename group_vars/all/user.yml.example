@@ -101,7 +101,6 @@ windows_gpg_agent_path: none
 # cloud provider(s) to configure
 # supported: onedrive
 cloud_providers:
-- onedrive
 
 # Absolute path to sync list file
 # https://github.com/abraunegg/onedrive/blob/master/docs/USAGE.md#selective-sync

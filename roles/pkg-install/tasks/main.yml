@@ -1,5 +1,6 @@
 - set_fact:
     pkg_use_aur: "{{ pkg_aur_name != 'none' }}"
+    pkg_use_apt: "{{ pkg_apt_name != 'none' }}"
 
 - debug:
     msg:
@@ -30,3 +31,20 @@
   - pkg_use_aur|bool
   environment:
     PATH: "{{ pkg_aur_path }}"
+
+- name: apt - install packages
+  apt:
+    name: "{{ pkg_apt_name }}"
+    state: present
+  when:
+  - ansible_distribution in apt_distros
+  - pkg_use_apt|bool
+
+- name: package - install packages
+  package:
+    name: "{{ pkg_name }}"
+    state: present
+  when:
+  - ansible_distribution in apt_distros
+  - ansible_distribution not in pacman_distros
+  - not pkg_use_apt|bool

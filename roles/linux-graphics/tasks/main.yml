@@ -1,9 +1,17 @@
-- name: Install Nvidia Drivers
+- name: Install Common Drivers
   include_role:
     name: pkg-install
   vars:
     pkg_name:
     - mesa
+    pkg_apt_name:
+    - mesa-utils
+
+- name: Install Nvidia Drivers
+  include_role:
+    name: pkg-install
+  vars:
+    pkg_name:
     - xf86-video-nouveau
   when: linux_graphics_install_nvidia_drivers|bool
 
@@ -20,6 +28,7 @@
     name: pkg-install
   vars:
     pkg_name:
-    - mesa
     - xf86-video-intel
+    pkg_apt_name:
+    - xserver-xorg-video-intel
   when: linux_graphics_install_intel_drivers|bool

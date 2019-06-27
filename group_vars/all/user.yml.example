@@ -136,6 +136,8 @@ desktop_environments:
 # only applies to Linux
 # set to 'none' to not configure display manager
 # NOTE: See "Changing Display Managers" in README about changing your default
+# WARNING: sddm will not work on Ubuntu, not without the Drivers working
+# TODO: Fix sddm for Ubuntu
 desktop_display_manager: sddm
 
 # Network Manager to use

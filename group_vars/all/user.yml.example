@@ -63,16 +63,19 @@ x11_enable_forwarding: true
 
 # default login shell for the user
 # supported default shells: bash, zsh
+# set to 'none' if you do not want to change your default shell
 default_shell: bash
 
 # secondary shell is a unstable non-login shell that gets loaded in rc file
 # for login shell
 # supported default shells: xonsh
+# set to 'none' if you do not want to configure a secondary shell
 secondary_shell: none
 
 # additional shells to config
 # can be any values of default/secondary shells
 # must include default and secondary shell vars from above
+# set to blank if you do not want to configure shells
 enabled_shells:
   - bash
   - zsh
@@ -80,11 +83,14 @@ enabled_shells:
 
 ## Git Settings
 
-# name and email for git, both must be configure to set .git_config
+# name and email for git
+# set both to 'none' to skip configuring Git
 git_email: none
 git_name: none
 
 # public GPG signing key to use for git
+# Set this to 'none', but above if you want to configure git
+# without a signing key
 git_signing_key: none
 
 
@@ -106,6 +112,7 @@ windows_gpg_agent_path: none
 
 # cloud provider(s) to configure
 # supported: onedrive
+# set to empty value to not install a cloud provider
 cloud_providers:
 
 # Absolute path to sync list file
@@ -117,16 +124,21 @@ onedrive_sync_list: none
 ## Desktop Settings
 
 # DEs to install and setup
-# supported DEs: kde
+# supported: kde
 # only applies to Linux
+# set to empty value to not manage desktop environments
 desktop_environments:
 - kde
 
-# Default DE to use
+# Display Manager to use
+# supported: sddm
 # only applies to Linux
-default_desktop_environment: kde
+# set to 'none' to not configure display manager
+linux_desktop_display_manager: sddm
 
 ## Graphics Drivers
+# WARNING: Only currently applies to Arch Linux Installs
+# TODO: Add Ubuntu support
 
 install_intel_drivers: false
 

@@ -1,22 +1,24 @@
 - name: Validate Desktop Environments
   assert:
-    that: item in linux_desktop_supported_environments
+    that: not item or item in linux_desktop_supported_environments
     msg: 'Supported Shell types: {{ linux_desktop_supported_environments }}'
   with_items: "{{ linux_desktop_environments }}"
 
-- name: Validate Default Environment
+- name: Validate Display Manager
   assert:
-    that:
-    - linux_desktop_default_environment in linux_desktop_supported_environments
-    - linux_desktop_default_environment in linux_desktop_environments
-    msg: 'Supported Shell types: {{ linux_desktop_supported_environments }}, must also be in linux_desktop_environments'
+    that: item in linux_desktop_supported_display_managers
+    msg: 'Supported Shell types: {{ linux_desktop_supported_display_managers }}'
+  with_items: "{{ linux_desktop_display_manager }}"
 
 - set_fact:
-    linux_desktop_install_kde: "{{ 'kde' in linux_desktop_environments }}"
+    linux_desktop_install_kde: "{{ linux_desktop_environments and 'kde' in linux_desktop_environments }}"
+
+- name: Install SDDM
+  include_role:
+    name: linux-desktop-sddm
+  when: linux_desktop_display_manager == 'sddm'
 
 - name: Install KDE
   include_role:
     name: linux-desktop-kde
-  vars:
-    linux_desktop_kde_enable: "{{ linux_desktop_default_environment == 'kde' }}"
   when: linux_desktop_install_kde|bool

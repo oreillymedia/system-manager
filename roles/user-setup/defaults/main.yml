@@ -9,8 +9,10 @@ user_supported_shells:
 user_default_shells:
   - bash
   - zsh
+  - none
 user_secondary_shells:
   - xonsh
+  - none
 user_users:
   - root
 user_git_email: none

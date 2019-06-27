@@ -32,6 +32,7 @@ powerline_xonsh_prompt_bg_color_root: 'RED'
 
 
 ## Pacman AUR settings
+# Only applies to Arch Linux
 
 # must be one of the AUR Helpers supported by ansible-aur:
 # https://github.com/kewlfft/ansible-aur

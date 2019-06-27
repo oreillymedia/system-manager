@@ -7,7 +7,7 @@
       - root
   pre_tasks:
     - set_fact:
-        users_to_configure: "{{ [ local_user ] }}"
+        users_to_configure: "{{ [ { 'user': local_user, 'use_tmux': use_tmux } ] }}"
         powerline_prompt_bg_colors: "{
           '{{ local_user }}': '{{ powerline_prompt_bg_color }}',
           'root': '{{ powerline_prompt_bg_color_root }}'
@@ -19,7 +19,7 @@
       tags: [ 'user' ]
 
     - set_fact:
-        users_to_configure: "{{ [ local_user ] + [ 'root' ] }}"
+        users_to_configure: "{{ users_to_configure + [ { 'user': 'root', 'use_tmux': false } ] }}"
       when: configure_root|bool
       tags: [ 'user' ]
   roles:

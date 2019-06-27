@@ -34,7 +34,6 @@
 
     - { role: helper-scripts,
         helper_x11_copy_script: "{{ x11_copy_script }}",
-        helper_x11_enable_forwarding: "{{ x11_enable_forwarding }}",
         helper_host_aliases: "{{ host_aliases }}",
         helper_gpg_local_agent: "{{ gpg_local_agent }}",
         helper_gpg_remote_agent: "{{ gpg_remote_agent }}",
@@ -90,5 +89,16 @@
       pkg_aur_name: "{{ extra_aur_packages }}",
       pkg_install_both: "{{ install_both }}",
       tags: [ 'extra' ],
-      when:
+      when: install_extra_packages|bool
+    }
+
+    - {
+      role: network-utils,
+      network_utils_x11_enable_forwarding: "{{ x11_enable_forwarding }}",
+      network_utils_setup_sshd: "{{ setup_sshd }}",
+      network_utils_setup_samba: "{{ setup_samba }}",
+      network_utils_samba_config: "{{ samba_config }}",
+      network_utils_setup_iptables: "{{ setup_iptables }}",
+      network_utils_whitelisted_networks: "{{ iptables_whitelisted_networks }}",
+      tags: [ 'extra' ],
     }

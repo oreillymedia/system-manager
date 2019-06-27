@@ -34,3 +34,5 @@
     - htop
     - git
     - vim
+    - openconnect
+    - openvpn

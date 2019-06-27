@@ -10,7 +10,6 @@
     pkg_apt_name:
     - network-manager
     - network-manager-openvpn
-    - network-manager-vpnc
     - network-manager-openconnect
 
 - name: systemd Enable Network Manager

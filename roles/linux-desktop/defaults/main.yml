@@ -3,11 +3,13 @@ linux_desktop_network: networkmanager
 linux_desktop_environments:
 - kde
 linux_desktop_supported_environments:
+- none
+- gnome
 - kde
-- none
 linux_desktop_supported_display_managers:
-- sddm
 - none
+- gdm
+- sddm
 linux_desktop_supported_networks:
 - none
 - networkmanager

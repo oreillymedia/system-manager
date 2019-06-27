@@ -18,6 +18,7 @@
 
 - set_fact:
     linux_desktop_install_kde: "{{ linux_desktop_environments and 'kde' in linux_desktop_environments }}"
+    linux_desktop_install_gnome: "{{ linux_desktop_environments and 'gnome' in linux_desktop_environments }}"
 
 - name: Install SDDM
   include_role:
@@ -33,3 +34,8 @@
   include_role:
     name: linux-desktop-kde
   when: linux_desktop_install_kde|bool
+
+- name: Install Gnome
+  include_role:
+    name: linux-desktop-gnome
+  when: linux_desktop_install_gnome|bool

@@ -20,5 +20,5 @@
     src: "{{ item.src }}"
     dest: "{{ item.dest }}"
   with_items:
-    - { src: hide_aur.conf, dest: /etc/sddm.conf.d/hide_aur.conf }
+    - { src: sddm/hide_aur.conf, dest: /etc/sddm.conf.d/hide_aur.conf }
   when: ansible_distribution in pacman_distros

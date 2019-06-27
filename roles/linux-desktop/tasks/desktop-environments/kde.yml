@@ -40,5 +40,5 @@
     owner: "{{ linux_desktop_user }}"
     group: "{{ linux_desktop_user }}"
   with_items:
-    - { src: konsole/profile.profile, dest: "~{{ linux_desktop_user }}/.local/share/konsole/Profile 1.profile" }
-    - { src: konsole/rc, dest: "~{{ linux_desktop_user }}/.config/konsolerc" }
+    - { src: kde/konsole/profile.profile, dest: "~{{ linux_desktop_user }}/.local/share/konsole/Profile 1.profile" }
+    - { src: kde/konsole/rc, dest: "~{{ linux_desktop_user }}/.config/konsolerc" }

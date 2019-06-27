@@ -21,26 +21,21 @@
     linux_desktop_install_gnome: "{{ linux_desktop_environments and 'gnome' in linux_desktop_environments }}"
 
 - name: Install SDDM
-  include_role:
-    name: linux-desktop-sddm
+  include: display-managers/sddm.yml
   when: linux_desktop_display_manager == 'sddm'
 
 - name: Install GDM
-  include_role:
-    name: linux-desktop-gdm
+  include: display-managers/gdm.yml
   when: linux_desktop_display_manager == 'gdm'
 
 - name: Install Network Manager
-  include_role:
-    name: linux-destop-networkmanager
+  include: networkmanager.yml
   when: linux_desktop_network == 'networkmanager'
 
 - name: Install KDE
-  include_role:
-    name: linux-desktop-kde
+  include: desktop-environments/kde.yml
   when: linux_desktop_install_kde|bool
 
 - name: Install Gnome
-  include_role:
-    name: linux-desktop-gnome
+  include: desktop-environments/gnome.yml
   when: linux_desktop_install_gnome|bool

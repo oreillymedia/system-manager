@@ -1,0 +1,23 @@
+- name: Install Gnome
+  include_role:
+    name: pkg-install
+  vars:
+    pkg_name:
+    - xorg
+    - gnome
+    - gnome-extra
+    - ttf-dejavu
+    - ttf-liberation
+
+- name: Install Gnome Network Manager
+  include_role:
+    name: pkg-install
+  vars:
+    pkg_name:
+    - network-manager-gnome
+    - network-manager-openvpn-gnome
+    - network-manager-vpnc-gnome
+    - network-manager-openconnect-gnome
+  when:
+  - linux_desktop_network == 'networkmanager'
+  - ansible_distribution in apt_distros

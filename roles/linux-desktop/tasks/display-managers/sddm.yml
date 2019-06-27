@@ -9,5 +9,5 @@
     - sddm
 
 - name: Configure SDDM (Arch)
-  include: arch.yml
+  include: display-managers/sddm-arch.yml
   when: ansible_distribution in pacman_distros

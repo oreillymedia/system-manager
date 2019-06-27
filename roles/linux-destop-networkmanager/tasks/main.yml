@@ -1,10 +1,17 @@
-- name: Install KDE
+- name: Install Network Manager
   include_role:
     name: pkg-install
   vars:
     pkg_name:
     - networkmanager
     - nm-connection-editor
+    - networkmanager-openvpn
+    - networkmanager-openconnect
+    pkg_apt_name:
+    - network-manager
+    - network-manager-openvpn
+    - network-manager-vpnc
+    - network-manager-openconnect
 
 - name: systemd Enable Network Manager
   systemd:

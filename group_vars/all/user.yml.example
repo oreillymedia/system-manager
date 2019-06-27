@@ -146,6 +146,7 @@ desktop_display_manager: sddm
 # set to 'none' to not configure network manager
 desktop_network_manager: networkmanager
 
+
 ## Graphics Drivers
 # WARNING: Only currently applies to Arch Linux Installs
 # TODO: Add Ubuntu support
@@ -153,3 +154,14 @@ desktop_network_manager: networkmanager
 install_intel_drivers: false
 
 install_nvidia_drivers: false
+
+
+## Extras
+
+# Install list of arbitary packages
+extra_packages:
+- chromium
+- firefox-developer-edition
+
+# Set to 'none' to skip installing AUR packages
+extra_aur_packages: none

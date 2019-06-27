@@ -16,7 +16,7 @@
     state: present
   when:
   - ansible_distribution in pacman_distros
-  - not pkg_use_aur|bool
+  - (not pkg_use_aur|bool) or pkg_install_both
 
 - name: aur - install packages
   aur:

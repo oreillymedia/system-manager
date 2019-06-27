@@ -7,6 +7,10 @@
       - root
   pre_tasks:
     - set_fact:
+        install_extra_packages: "{{ pkg_name or pkg_aur_name }}"
+        install_both: "{{ pkg_name and pkg_aur_name }}"
+      tags: [ 'extra' ]
+    - set_fact:
         users_to_configure: "{{ [ { 'user': local_user, 'use_tmux': use_tmux } ] }}"
         powerline_prompt_bg_colors: "{
           '{{ local_user }}': '{{ powerline_prompt_bg_color }}',
@@ -79,3 +83,12 @@
         tags: [ 'desktop' ],
         when: ansible_system == "Linux"
       }
+
+    - {
+      role: pkg-install,
+      pkg_name: "{{ extra_packages }}",
+      pkg_aur_name: "{{ extra_aur_packages }}",
+      pkg_install_both: "{{ install_both }}",
+      tags: [ 'extra' ],
+      when:
+    }

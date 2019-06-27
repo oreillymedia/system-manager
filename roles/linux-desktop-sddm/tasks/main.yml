@@ -5,27 +5,9 @@
     pkg_name:
     - sddm
     - sddm-kcm
+    pkg_apt_name:
+    - sddm
 
-- name: systemd Enable SDDM
-  systemd:
-    name: "{{ item }}"
-    daemon_reload: true
-    enabled: true
-    state: started
-  with_items:
-  - sddm
-
-- name: Make System Dirs
-  file:
-    path: "{{ item }}"
-    state: directory
-    recurse: true
-  with_items:
-    - /etc/sddm.conf.d/
-
-- name: Copy System Configs
-  template:
-    src: "{{ item.src }}"
-    dest: "{{ item.dest }}"
-  with_items:
-    - { src: hide_aur.conf, dest: /etc/sddm.conf.d/hide_aur.conf }
+- name: Configure SDDM (Arch)
+  include: arch.yml
+  when: ansible_distribution in pacman_distros

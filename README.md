@@ -45,5 +45,15 @@ $ sudo systemctl stop display-manager
 $ sudo systemctl disable display-manager
 ```
 
-Update `desktop_display_manager` in your `user.yml` and then the new display
-manager will be enabled.
+Update `desktop_display_manager` in your `user.yml` and then run the
+`desktop` tag and your new display manager will be enabled.
+
+### Ubuntu Display Manager
+
+Update `desktop_display_manager` in your `user.yml` and then run the
+`desktop` tag. Then run the following command to choose your new default
+display manager:
+
+```bash
+sudo dpkg-reconfigure name_of_display_manager
+```

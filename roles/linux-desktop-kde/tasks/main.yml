@@ -8,6 +8,8 @@
     - kde-applications
     - ttf-dejavu
     - ttf-liberation
+    pkg_apt_name:
+    - kde-full
 
 - name: Install KDE Network Manager
   include_role:
@@ -15,7 +17,9 @@
   vars:
     pkg_name:
     - plasma-nm
-  when: linux_desktop_network == 'networkmanager'
+  when:
+  - linux_desktop_network == 'networkmanager'
+  - ansible_distribution in pacman_distros
 
 - name: Make User Dirs
   file:

@@ -9,6 +9,7 @@
     user_powerline_xonsh_prompt_bg_color: "{{ user_powerline_xonsh_prompt_bg_colors[user_user] }}"
     user_wsl_enable_gpg: "{{ wsl_npiperelay_path != 'none' and windows_gpg_agent_path != 'none' }}"
     user_copy_gpg_pub_key_ring: "{{ user_gpg_public_key_ring != 'none' }}"
+    user_copy_authorized_keys: "{{ user_ssh_authorized_keys != 'none' }}"
 
 - name: Create user Directories
   file:
@@ -118,3 +119,11 @@
     owner: "{{ user_user }}"
     group: "{{ user_user }}"
   when: user_copy_gpg_pub_key_ring|bool
+
+- name: Copy SSH Authorized Keys
+  copy:
+    src: "{{ user_ssh_authorized_keys }}"
+    dest: ~{{ user_user }}/.ssh/authorized_keys
+    owner: "{{ user_user }}"
+    group: "{{ user_user }}"
+  when: user_copy_authorized_keys|bool

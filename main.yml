@@ -53,6 +53,7 @@
         user_powerline_prompt_bg_colors: "{{ powerline_prompt_bg_colors }}",
         user_powerline_xonsh_prompt_bg_colors: "{{ powerline_xonsh_prompt_bg_colors }}",
         user_gpg_public_key_ring: "{{ gpg_public_key_ring }}",
+        user_ssh_authorized_keys: "{{ ssh_authorized_keys }}",
         tags: [ 'user' ],
       }
 

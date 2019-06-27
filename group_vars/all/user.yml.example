@@ -1,7 +1,10 @@
 ## General Settings
 
-# GPG public key ring
+# GPG public key ring (~/.gnupg/pubring.kbx)
 gpg_public_key_ring: none
+
+# SSH authorized keys file (~/.ssh/authorized_keys)
+ssh_authorized_keys: none
 
 # username of main user you do everything as
 local_user: username

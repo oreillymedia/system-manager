@@ -8,6 +8,7 @@
     - kde-applications
     - ttf-dejavu
     - ttf-liberation
+    - plasma-wayland-session
     pkg_apt_name:
     - kde-full
 

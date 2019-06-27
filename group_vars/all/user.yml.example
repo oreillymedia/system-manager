@@ -1,5 +1,8 @@
 ## General Settings
 
+# GPG public key ring
+gpg_public_key_ring: none
+
 # username of main user you do everything as
 local_user: username
 
@@ -119,3 +122,9 @@ desktop_environments:
 # Default DE to use
 # only applies to Linux
 default_desktop_environment: kde
+
+## Graphics Drivers
+
+install_intel_drivers: false
+
+install_nvidia_drivers: false

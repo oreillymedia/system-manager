@@ -1,4 +1,5 @@
 linux_desktop_display_manager: sddm
+linux_desktop_network: networkmanager
 linux_desktop_environments:
 - kde
 linux_desktop_supported_environments:
@@ -7,3 +8,6 @@ linux_desktop_supported_environments:
 linux_desktop_supported_display_managers:
 - sddm
 - none
+linux_desktop_supported_networks:
+- none
+- networkmanager

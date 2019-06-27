@@ -5,7 +5,7 @@
     pkg_name:
     - xorg
     - gnome
-    - gnome-extras
+    - gnome-extra
     - ttf-dejavu
     - ttf-liberation
 

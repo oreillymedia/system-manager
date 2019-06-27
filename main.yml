@@ -73,7 +73,8 @@
 
     - { role: linux-desktop,
         linux_desktop_user: "{{ local_user }}",
-        linux_desktop_default_environment: "{{ default_desktop_environment }}",
+        linux_desktop_network: "{{ desktop_network_manager }}",
+        linux_desktop_display_manager: "{{ desktop_display_manager }}",
         linux_desktop_environments: "{{ desktop_environments }}",
         tags: [ 'desktop' ],
         when: ansible_system == "Linux"

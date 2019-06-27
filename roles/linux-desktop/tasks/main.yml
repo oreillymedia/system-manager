@@ -25,6 +25,11 @@
     name: linux-desktop-sddm
   when: linux_desktop_display_manager == 'sddm'
 
+- name: Install GDM
+  include_role:
+    name: linux-desktop-gdm
+  when: linux_desktop_display_manager == 'gdm'
+
 - name: Install Network Manager
   include_role:
     name: linux-destop-networkmanager

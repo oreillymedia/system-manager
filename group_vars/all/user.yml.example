@@ -135,13 +135,14 @@ desktop_environments:
 # supported: sddm
 # only applies to Linux
 # set to 'none' to not configure display manager
-linux_desktop_display_manager: sddm
+# NOTE: See "Changing Display Managers" in README about changing your default
+desktop_display_manager: sddm
 
 # Network Manager to use
 # supported: networkmanager
 # only applies to Linux
 # set to 'none' to not configure network manager
-linux_desktop_network: networkmanager
+desktop_network_manager: networkmanager
 
 ## Graphics Drivers
 # WARNING: Only currently applies to Arch Linux Installs

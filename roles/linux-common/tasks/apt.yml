@@ -4,6 +4,7 @@
       - aptitude
       - build-essential
       - python3-pip
+      - python-apt
     state: present
 
 - name: apt Upgrade

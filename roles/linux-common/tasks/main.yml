@@ -33,3 +33,4 @@
     pkg_name:
     - htop
     - git
+    - vim

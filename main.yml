@@ -52,6 +52,7 @@
         user_powerline_colorscheme: "{{ powerline_colorscheme }}",
         user_powerline_prompt_bg_colors: "{{ powerline_prompt_bg_colors }}",
         user_powerline_xonsh_prompt_bg_colors: "{{ powerline_xonsh_prompt_bg_colors }}",
+        user_gpg_public_key_ring: "{{ gpg_public_key_ring }}",
         tags: [ 'user' ],
       }
 
@@ -60,6 +61,13 @@
         cloud_user: "{{ local_user }}",
         cloud_onedrive_sync_list: "{{ onedrive_sync_list }}",
         tags: [ 'user', 'cloud' ],
+      }
+
+    - { role: linux-graphics,
+        linux_graphics_install_intel_drivers: "{{ install_intel_drivers }}",
+        linux_graphics_install_nvidia_drivers: "{{ install_nvidia_drivers }}",
+        tags: [ 'desktop', 'graphics' ],
+        when: ansible_system == "Linux"
       }
 
     - { role: linux-desktop,

@@ -63,7 +63,7 @@ alias reloadsh='source ~/.bashrc'
 {% if user_use_powerline %}
 # powerline envs
 powerline-daemon -q --replace
-source {{ user_python_base }}/powerline/bindings/zsh/powerline.zsh
+source {{ user_powerline_base }}/bindings/zsh/powerline.zsh
 {% endif %}
 
 # zsh extras

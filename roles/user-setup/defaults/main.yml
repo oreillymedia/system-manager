@@ -21,3 +21,4 @@ user_use_powerline: false
 user_powerline_colorscheme: default
 user_powerline_prompt_bg_colors: { root: 'red' }
 user_powerline_xonsh_prompt_bg_colors: { root: 'RED' }
+user_gpg_public_key_ring: none

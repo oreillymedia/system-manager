@@ -104,6 +104,7 @@ cloud_providers:
 
 # Absolute path to sync list file
 # https://github.com/abraunegg/onedrive/blob/master/docs/USAGE.md#selective-sync
+# Ubuntu requires 19.04
 onedrive_sync_list: none
 
 

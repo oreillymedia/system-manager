@@ -1,0 +1,25 @@
+- name: Install Nvidia Drivers
+  include_role:
+    name: pkg-install
+  vars:
+    pkg_name:
+    - mesa
+    - xf86-video-nouveau
+  when: linux_graphics_install_nvidia_drivers|bool
+
+- name: Add nouveau to mkinitcpio
+  lineinfile:
+    path: /etc/mkinitcpio.conf
+    regexp: '^MODULES='
+    line: MODULES=(nouveau)
+  notify: regenerate mkinitcpio
+  when: linux_graphics_install_nvidia_drivers|bool
+
+- name: Install Intel Drivers
+  include_role:
+    name: pkg-install
+  vars:
+    pkg_name:
+    - mesa
+    - xf86-video-intel
+  when: linux_graphics_install_intel_drivers|bool

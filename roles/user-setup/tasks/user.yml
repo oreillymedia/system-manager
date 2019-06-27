@@ -8,6 +8,7 @@
     user_powerline_prompt_bg_color: "{{ user_powerline_prompt_bg_colors[user_user] }}"
     user_powerline_xonsh_prompt_bg_color: "{{ user_powerline_xonsh_prompt_bg_colors[user_user] }}"
     user_wsl_enable_gpg: "{{ wsl_npiperelay_path != 'none' and windows_gpg_agent_path != 'none' }}"
+    user_copy_gpg_pub_key_ring: "{{ user_gpg_public_key_ring != 'none' }}"
 
 - name: Create user Directories
   file:
@@ -19,6 +20,7 @@
   with_items:
   - ~{{ user_user }}/.local
   - ~{{ user_user }}/.ssh
+  - ~{{ user_user }}/.gnupg
 
 - name: Create powerline Directories
   file:
@@ -105,6 +107,14 @@
 
 - name: Set Shell bash
   user:
-    name: "{{ user }}"
+    name: "{{ user_user }}"
     shell: /bin/bash
   when: user_default_shell == "bash"
+
+- name: Copy GPG Public Key Ring
+  copy:
+    src: "{{ user_gpg_public_key_ring }}"
+    dest: ~{{ user_user }}/.gnupg/pubring.kbx
+    owner: "{{ user_user }}"
+    group: "{{ user_user }}"
+  when: user_copy_gpg_pub_key_ring|bool

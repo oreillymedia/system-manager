@@ -4,9 +4,6 @@
   vars:
     pkg_name:
     - xorg
-    - mesa
-    - xf86-video-nouveau
-    - xf86-video-intel
     - sddm
     - sddm-kcm
     - plasma
@@ -28,13 +25,6 @@
   - sddm
   - NetworkManager
   when: linux_desktop_kde_enable|bool
-
-- name: Add nouveau to mkinitcpio
-  lineinfile:
-    path: /etc/mkinitcpio.conf
-    regexp: '^MODULES='
-    line: MODULES=(nouveau)
-  notify: regenerate mkinitcpio
 
 - name: Make System Dirs
   file:

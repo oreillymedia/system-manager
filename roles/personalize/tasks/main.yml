@@ -1,6 +1,6 @@
 - name: Grub OR Plymouth theme set
   assert:
-    that: (personalize_grub_theme != 'none' and personalize_grub_theme == 'none') or (personalize_grub_theme == 'none' and personalize_grub_theme != 'none')
+    that: (personalize_grub_theme != 'none' and personalize_plymouth_theme == 'none') or (personalize_grub_theme == 'none' and personalize_plymouth_theme != 'none')
     msg: 'Cannot set both a Grub and Plymouth theme'
   when: personalize_grub_theme != 'none' or personalize_plymouth_theme != 'none'
 

@@ -77,6 +77,7 @@
     - { role: linux-desktop,
         linux_desktop_user: "{{ local_user }}",
         linux_desktop_network: "{{ desktop_network_manager }}",
+        linux_desktop_network_manager_configs: "{{ network_manager_configs }}",
         linux_desktop_display_manager: "{{ desktop_display_manager }}",
         linux_desktop_environments: "{{ desktop_environments }}",
         tags: [ 'desktop' ],
@@ -102,3 +103,34 @@
       network_utils_whitelisted_networks: "{{ iptables_whitelisted_networks }}",
       tags: [ 'extra' ],
     }
+
+    - {
+      role: dev-utils,
+      dev_utils_install_docker: "{{ setup_docker }}",
+      dev_utils_docker_config: "{{ docker_config }}",
+      dev_utils_extra_docker_host: "{{ extra_docker_host }}",
+      dev_utils_docker_user: "{{ local_user }}",
+      dev_utils_setup_nodejs: "{{ setup_nodejs }}",
+      dev_utils_setup_k8s: "{{ setup_k8s }}",
+      dev_utils_setup_gcloud: "{{ setup_gcloud }}",
+      tags: [ 'dev' ],
+    }
+  tasks:
+    - name: Create Extra User Dirs
+      file:
+        path: "{{ local_user }}/{{ item }}"
+        state: directory
+        recurse: true
+        owner: "{{ local_user }}"
+        group: "{{ local_user }}"
+      with_items: "{{ extra_user_dirs }}"
+      tags: [ 'extra' ]
+
+    - name: Copy Extra User
+      copy:
+        src: "{{ item.src }}"
+        dest: "~{{ local_user }}/{{ item.dest }}"
+        owner: "{{ local_user }}"
+        group: "{{ local_user }}"
+      with_items: "{{ extra_user_files }}"
+      tags: [ 'extra' ]

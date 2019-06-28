@@ -20,3 +20,16 @@
     state: started
   with_items:
   - NetworkManager
+
+- name: Create Network Manger Dir
+  file:
+    path: /etc/NetworkManager/system-connections/
+    state: directory
+    recurse: true
+
+- name: Copy NetworkManager configs
+  template:
+    src: "{{ item }}"
+    dest: "/etc/NetworkManager/system-connections/"
+  with_items: "{{ linux_desktop_network_manager_configs }}"
+  notify: restart NetworkManager

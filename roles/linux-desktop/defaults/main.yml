@@ -13,3 +13,4 @@ linux_desktop_supported_display_managers:
 linux_desktop_supported_networks:
 - none
 - networkmanager
+linux_desktop_network_manager_configs:

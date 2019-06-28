@@ -1,3 +1,12 @@
+- name: Create System Config Dirs
+  file:
+    path: "{{ item }}"
+    state: directory
+    recurse: true
+  with_items:
+    - /etc/samba
+    - /etc/iptables
+
 # sshd
 - name: Install sshd
   include_role:
@@ -69,6 +78,7 @@
     network_utils_smb_service: smb
   when: ansible_distribution in pacman_distros
 
+# smbpasswd -a username
 - name: Install samba
   include_role:
     name: pkg-install

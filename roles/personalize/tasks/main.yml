@@ -22,7 +22,7 @@
 - name: Disable Grub Theme
   lineinfile:
     path: /etc/default/grub
-    regexp: '^GRUB_THEME='
+    regexp: '^(# )?GRUB_THEME='
     line: '# GRUB_THEME=/boot/grub/themes/user-theme/theme.txt'
   when: personalize_plymouth_theme != 'none'
   notify: regen grub

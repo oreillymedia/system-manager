@@ -31,5 +31,8 @@
   template:
     src: "{{ item }}"
     dest: "/etc/NetworkManager/system-connections/"
+    mode: 0600
+    owner: root
+    group: root
   with_items: "{{ linux_desktop_network_manager_configs }}"
   notify: restart NetworkManager

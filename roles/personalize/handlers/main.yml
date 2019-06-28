@@ -1,0 +1,7 @@
+- name: regen grub
+  command: grub-mkconfig -o /boot/grub/grub.cfg
+  when: ansible_system == "Linux"
+
+- name: regen mkinitcpio
+  command: mkinitcpio -p linux
+  when: ansible_system == "Linux"

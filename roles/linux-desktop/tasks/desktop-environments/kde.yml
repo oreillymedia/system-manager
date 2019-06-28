@@ -42,3 +42,4 @@
   with_items:
     - { src: kde/konsole/profile.profile, dest: "~{{ linux_desktop_user }}/.local/share/konsole/Profile 1.profile" }
     - { src: kde/konsole/rc, dest: "~{{ linux_desktop_user }}/.config/konsolerc" }
+    - { src: kde/kdesurc, dest: "~{{ linux_desktop_user }}/.config/kdesurc" }

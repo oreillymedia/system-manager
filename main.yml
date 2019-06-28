@@ -115,6 +115,13 @@
       dev_utils_setup_gcloud: "{{ setup_gcloud }}",
       tags: [ 'dev' ],
     }
+
+    - {
+      role: personalize,
+      personalize_grub_theme: "{{ grub_theme }}",
+      personalize_plymouth_theme: "{{ plymouth_theme }}",
+      tags: [ 'personalize' ],
+    }
   tasks:
     - name: Create Extra User Dirs
       file:

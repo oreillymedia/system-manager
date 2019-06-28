@@ -20,7 +20,7 @@
     path: /etc/mkinitcpio.conf
     regexp: '^MODULES='
     line: MODULES=(nouveau)
-  notify: regenerate mkinitcpio
+  notify: regen mkinitcpio
   when: linux_graphics_install_nvidia_drivers|bool
 
 - name: Install Intel Drivers

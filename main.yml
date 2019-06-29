@@ -79,7 +79,11 @@
         linux_desktop_network: "{{ desktop_network_manager }}",
         linux_desktop_network_manager_configs: "{{ network_manager_configs }}",
         linux_desktop_display_manager: "{{ desktop_display_manager }}",
+        linux_desktop_display_manager_use_plymouth: "{{ desktop_display_manager_use_plymouth }}",
+        linux_desktop_display_manager_theme: "{{ desktop_display_manager_theme }}",
+        linux_desktop_display_manager_user_icon: "{{ desktop_display_manager_user_icon }}",
         linux_desktop_environments: "{{ desktop_environments }}",
+        linux_desktop_kde_theme: "{{ kde_theme }}",
         tags: [ 'desktop' ],
         when: ansible_system == "Linux"
       }

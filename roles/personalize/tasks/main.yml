@@ -1,8 +1,8 @@
-- name: Grub OR Plymouth theme set
-  assert:
-    that: (personalize_grub_theme != 'none' and personalize_plymouth_theme == 'none') or (personalize_grub_theme == 'none' and personalize_plymouth_theme != 'none')
-    msg: 'Cannot set both a Grub and Plymouth theme'
-  when: personalize_grub_theme != 'none' or personalize_plymouth_theme != 'none'
+# - name: Grub OR Plymouth theme set
+#   assert:
+#     that: (personalize_grub_theme != 'none' and personalize_plymouth_theme == 'none') or (personalize_grub_theme == 'none' and personalize_plymouth_theme != 'none')
+#     msg: 'Cannot set both a Grub and Plymouth theme'
+#   when: personalize_grub_theme != 'none' or personalize_plymouth_theme != 'none'
 
 - name: Copy Grub Theme
   copy:
@@ -34,13 +34,13 @@
   when: personalize_grub_background != 'none'
   notify: regen grub
 
-- name: Disable Grub Theme
-  lineinfile:
-    path: /etc/default/grub
-    regexp: '^(# )?GRUB_THEME='
-    line: '# GRUB_THEME=/boot/grub/themes/user-theme/theme.txt'
-  when: personalize_plymouth_theme != 'none'
-  notify: regen grub
+# - name: Disable Grub Theme
+#   lineinfile:
+#     path: /etc/default/grub
+#     regexp: '^(# )?GRUB_THEME='
+#     line: '# GRUB_THEME=/boot/grub/themes/user-theme/theme.txt'
+#   when: personalize_plymouth_theme != 'none'
+#   notify: regen grub
 
 - name: Copy Plymouth Theme
   copy:
@@ -49,12 +49,12 @@
   when: personalize_plymouth_theme != 'none'
   notify: update plymouth
 
-# - name: Enable Plymouth Theme
-#   template:
-#     src: plymouthd.conf.j2
-#     dest: /etc/plymouth/plymouthd.conf
-#   when: personalize_plymouth_theme != 'none'
-#   notify: update plymouth
+- name: Enable Plymouth Theme
+  template:
+    src: plymouthd.conf.j2
+    dest: /etc/plymouth/plymouthd.conf
+  when: personalize_plymouth_theme != 'none'
+  notify: update plymouth
 
 # https://wiki.archlinux.org/index.php/Silent_boot
 - name: Copy Slient Boot Configs

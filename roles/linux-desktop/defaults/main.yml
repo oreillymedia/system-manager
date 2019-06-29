@@ -14,3 +14,7 @@ linux_desktop_supported_networks:
 - none
 - networkmanager
 linux_desktop_network_manager_configs:
+linux_desktop_display_manager_theme: none
+linux_desktop_display_manager_user_icon: none
+linux_desktop_display_manager_use_plymouth: false
+linux_desktop_kde_theme: none

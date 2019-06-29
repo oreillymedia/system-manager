@@ -2,6 +2,7 @@
   hosts:
     - 127.0.0.1
   become: true
+  become_flags: "-E"
   vars:
     users_to_configure:
       - root
@@ -145,4 +146,11 @@
         owner: "{{ local_user }}"
         group: "{{ local_user }}"
       with_items: "{{ extra_user_files }}"
+      tags: [ 'extra' ]
+
+    - name: Copy Extra System
+      copy:
+        src: "{{ item.src }}"
+        dest: "{{ item.dest }}"
+      with_items: "{{ extra_system_files }}"
       tags: [ 'extra' ]

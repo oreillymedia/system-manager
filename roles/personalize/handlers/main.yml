@@ -2,6 +2,6 @@
   command: grub-mkconfig -o /boot/grub/grub.cfg
   when: ansible_system == "Linux"
 
-- name: regen mkinitcpio
-  command: mkinitcpio -p linux
+- name: update plymouth
+  command: plymouth-set-default-theme -R user-theme
   when: ansible_system == "Linux"

@@ -120,6 +120,7 @@
       role: personalize,
       personalize_grub_theme: "{{ grub_theme }}",
       personalize_plymouth_theme: "{{ plymouth_theme }}",
+      personalize_grub_background: "{{ grub_background }}",
       tags: [ 'personalize' ],
     }
   tasks:

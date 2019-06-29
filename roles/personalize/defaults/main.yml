@@ -1,2 +1,4 @@
 personalize_grub_theme: none
 personalize_plymouth_theme: none
+personalize_silent_boot: true
+personalize_grub_background: none

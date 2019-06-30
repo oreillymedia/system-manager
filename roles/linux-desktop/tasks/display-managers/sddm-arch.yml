@@ -6,6 +6,12 @@
     linux_desktop_sddm_service: "sddm-plymouth"
   when: linux_desktop_display_manager_use_plymouth|bool
 
+- name: Enable SDDM Theme
+  template:
+    src: sddm/theme.conf.j2
+    dest: /etc/sddm.conf.d/theme.conf
+  when: linux_desktop_display_manager_theme != 'none'
+
 - name: systemd Enable SDDM
   systemd:
     name: "{{ linux_desktop_sddm_service }}"

@@ -14,12 +14,6 @@
     dest: /usr/share/sddm/themes/user-theme
   when: linux_desktop_display_manager_theme != 'none'
 
-- name: Enable SDDM Theme
-  template:
-    src: sddm/theme.conf.j2
-    dest: /etc/sddm.conf.d/theme.conf
-  when: linux_desktop_display_manager_theme != 'none'
-
 - name: Copy SDDM User Icon
   copy:
     src: "{{ item.src }}"
@@ -40,7 +34,6 @@
   - { path: "~{{ linux_desktop_user }}", permissions: x }
   - { path: "~{{ linux_desktop_user }}/.face.icon", permissions: r }
   when: linux_desktop_display_manager_theme != 'none'
-
 
 - name: Configure SDDM (Arch)
   include: display-managers/sddm-arch.yml

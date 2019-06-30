@@ -13,6 +13,8 @@
   vars:
     pkg_name:
     - xf86-video-nouveau
+    pkg_apt_name:
+    - xserver-xorg-video-nouveau
   when: linux_graphics_install_nvidia_drivers|bool
 
 - name: Add nouveau to mkinitcpio
@@ -21,7 +23,9 @@
     regexp: '^MODULES='
     line: MODULES=(nouveau)
   notify: regen mkinitcpio
-  when: linux_graphics_install_nvidia_drivers|bool
+  when:
+  - linux_graphics_install_nvidia_drivers|bool
+  - ansible_distribution in pacman_distros
 
 - name: Install Intel Drivers
   include_role:

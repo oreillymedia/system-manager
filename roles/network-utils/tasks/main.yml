@@ -72,10 +72,14 @@
 # samba
 - set_fact:
     network_utils_smb_service: smbd
+    network_utils_iptables_service: netfilter-persistent
+    network_utils_iptables_config: /etc/iptables/rules.v4
   when: ansible_distribution in apt_distros
 
 - set_fact:
     network_utils_smb_service: smb
+    network_utils_iptables_service: iptables
+    network_utils_iptables_config: /etc/iptables/iptables.rules
   when: ansible_distribution in pacman_distros
 
 # smbpasswd -a username
@@ -108,11 +112,14 @@
     name: pkg-install
   vars:
     pkg_name: iptables
+    pkg_apt_name:
+    - iptables-persistent
+    - netfilter-persistent
   when: network_utils_setup_iptables|bool
 
 - name: systemd Enable samba
   systemd:
-    name: iptables
+    name: "{{ network_utils_iptables_service }}"
     daemon_reload: true
     enabled: true
     state: started
@@ -121,6 +128,6 @@
 - name: Copy iptables.rules
   template:
     src: iptables.rules
-    dest: /etc/iptables/iptables.rules
+    dest: "{{ network_utils_iptables_config }}"
   notify: restart iptables
   when: network_utils_setup_iptables|bool

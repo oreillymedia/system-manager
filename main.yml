@@ -27,6 +27,12 @@
         users_to_configure: "{{ users_to_configure + [ { 'user': 'root', 'use_tmux': false } ] }}"
       when: configure_root|bool
       tags: [ 'user' ]
+
+    - apt_repository:
+        repo: "{{ item }}"
+      with_items: "{{ extra_ppas }}"
+      when: ansible_distribution in apt_distros
+      tags: [ 'extra' ]
   roles:
     - { role: linux-common,
         tags: [ 'core' ],
@@ -131,7 +137,7 @@
   tasks:
     - name: Create Extra User Dirs
       file:
-        path: "{{ local_user }}/{{ item }}"
+        path: "~{{ local_user }}/{{ item }}"
         state: directory
         recurse: true
         owner: "{{ local_user }}"

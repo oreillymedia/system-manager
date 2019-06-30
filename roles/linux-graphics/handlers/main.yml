@@ -1,3 +1,7 @@
 - name: regen mkinitcpio
   command: mkinitcpio -p linux
-  when: ansible_system == "Linux"
+  when: ansible_distribution in pacman_distros
+
+- name: regen mkinitcpio
+  command: update-initramfs -u
+  when: ansible_distribution in apt_distros

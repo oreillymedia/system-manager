@@ -131,6 +131,13 @@ onedrive_sync_list: none
 desktop_environments:
 - kde
 
+# KDE theme to install
+# path must end in /
+#
+# This theme is only copied over, you still have to manually
+# enable it in system settings
+kde_theme: none
+
 # Display Manager to use
 # supported: sddm
 # only applies to Linux
@@ -139,6 +146,18 @@ desktop_environments:
 # WARNING: sddm will not work on Ubuntu, not without the Drivers working
 # TODO: Fix sddm for Ubuntu
 desktop_display_manager: sddm
+
+# Whether or not you already have Plymouth installed and configured
+# (if you are on Ubuntu, the answer is probably yes)
+desktop_display_manager_use_plymouth: true
+
+# Display Manager theme to install
+# path must end in /
+# Theme must be fore the display manager you selected above
+desktop_display_manager_theme: none
+
+# Path to PNG image to use for User Icon
+desktop_display_manager_user_icon: none
 
 # Network Manager to use
 # supported: networkmanager
@@ -151,21 +170,22 @@ desktop_network_manager: networkmanager
 network_manager_configs:
 
 
-## Graphics Drivers
-# WARNING: Only currently applies to Arch Linux Installs
-# TODO: Add Ubuntu support
-
+## Graphics Drivers Settings
+# WARNING: Only support open source drivers
 install_intel_drivers: false
 
 install_nvidia_drivers: false
 
 
-## Extras
+## Extras Settings
+
+# Add extra PPA repos, Ubuntu only
+# set to empty to skip
+extra_ppas:
 
 # Install list of arbitary packages
 # set to empty to not install any
 extra_packages:
-
 
 # Set to 'none' to skip installing AUR packages
 extra_aur_packages: none
@@ -222,3 +242,25 @@ setup_k8s: false
 
 # setup and install Google Cloud SDK
 setup_gcloud: false
+
+# list of git repos to clone
+git_repos:
+# - { url: "git@github.com:AngellusMortis/system-manager.git", dest: dev/system-manager, branch: master }
+
+
+## Extra Personalization settings
+
+# Grub background
+# WARNING: Do NOT set a Grub background and a Grub theme
+grub_background: none
+
+# Grub theme to install
+# path must end in /
+# there must be a theme.txt file
+grub_theme: none
+# grub_theme: none
+
+# Plymouth theme to install
+# path must end in /
+# there must be a theme.txt file
+plymouth_theme: none

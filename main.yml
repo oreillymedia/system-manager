@@ -135,6 +135,15 @@
       tags: [ 'personalize' ],
     }
   tasks:
+    - name: Clone git repos
+      git:
+        repo: "{{ item.url }}"
+        dest: "~{{ local_user }}/{{ item.dest }}"
+        version: "{{ item.branch }}"
+      with_items: "{{ git_repos }}"
+      tags: [ 'dev' ]
+      become: false
+
     - name: Create Extra User Dirs
       file:
         path: "~{{ local_user }}/{{ item }}"

@@ -125,11 +125,12 @@ onedrive_sync_list: none
 ## Desktop Settings
 
 # DEs to install and setup
-# supported: kde
+# supported: kde, gnome
 # only applies to Linux
 # set to empty value to not manage desktop environments
+# WARNING: GNOME support still work in progress, not as full featured as KDE
 desktop_environments:
-- kde
+# - kde
 
 # KDE theme to install
 # path must end in /
@@ -139,13 +140,12 @@ desktop_environments:
 kde_theme: none
 
 # Display Manager to use
-# supported: sddm
+# supported: sddm, gdm
 # only applies to Linux
 # set to 'none' to not configure display manager
 # NOTE: See "Changing Display Managers" in README about changing your default
-# WARNING: sddm will not work on Ubuntu, not without the Drivers working
-# TODO: Fix sddm for Ubuntu
-desktop_display_manager: sddm
+# WARNING: GDM support still work in progress, not as full featured as SDDM
+desktop_display_manager: none
 
 # Whether or not you already have Plymouth installed and configured
 # (if you are on Ubuntu, the answer is probably yes)
@@ -163,7 +163,7 @@ desktop_display_manager_user_icon: none
 # supported: networkmanager
 # only applies to Linux
 # set to 'none' to not configure network manager
-desktop_network_manager: networkmanager
+desktop_network_manager: none
 
 # Network Manager connection configs
 # Set to empty to not configure any connections

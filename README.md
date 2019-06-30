@@ -1,7 +1,12 @@
 # Yet Another Ansible System Manager
 
-This project is just designed to be a collection of roles and/or playbooks to
-bootstrap and manager a developer machine.
+As developers we have many tools to build reproducible envionrments: Packer,
+Vagrant, Docker, Ansible, Chef, Puppet, etc. The one thing we do not often have
+made in a reproducible way is our local developer machines. Why not use one of
+those great tools above (Ansible) to do this for us?
+
+This project is just designed to be a collection of Ansible roles and/or playbooks
+to bootstrap and manage a developer machine.
 
 ## Requirements
 
@@ -29,6 +34,65 @@ $ sudo apt install ansible git
 ```
 
 ## Setup
+
+At the bare minmal, you need initalize submodules and copy the
+`user.yml.example` to `user.yml` and tweak it to your liking.
+
+```bash
+$ cd system-manager
+$ git submodule update --init
+$ cd system-manager/group_vars/all
+$ cp user.yml.example user.yml
+$ # EDIT user.yml to your liking
+```
+
+### User Configs
+
+`system-manager` provides a folder, `user` that is completely git ignored. You
+can put anything in here that you need to reference elsewhere in your `user.yml`.
+
+For example, what this is what I do:
+
+```bash
+$ cd system-manager/user
+$ git clone git@github.com:AngellusMortis/mortis-configs.git
+$ cd system-manager/group_vars/all
+$ ln -s ../../user/mortis-configs/vars/user.arch.example.yml
+```
+
+What way I can version all of my things, including custom themes!
+
+## Usage
+
+To run the full `system-manager`, it is pretty straightforward:
+
+```bash
+$ cd system-manager
+$ ansible-playbook main.yml
+```
+
+`system-manager` also provides a bunch of tags if you would like to only run a
+subset of the functionality it provides.
+
+| Tag | Description |
+|-----|-------------|
+| `core` | Core set of sytem management actions. Primarily runs system updates |
+| `helpers` | Subset of `core`. Copies over some helper scripts made to automate common tasks. |
+| `user` | A collection of tasks to configure various local user settings, like your `bashrc` or `gitconfig`. |
+| `cloud` | Subset of `user`. Intalls and configures a Cloud sync provider like OneDrive. |
+| `desktop` | Tasks to configure your desktop environment. |
+| `graphics` | Subset of `desktop`. Installs graphics drivers. |
+| `extra` | Tasks to copy artbiary files and install extra packages. |
+| `dev` | Tasks to bootstrap dev environments. Installs tools like Docker, NPM/Node.js, an Kubernetes. Also can clone artbiary git repos. |
+| `personalize` | Tasks to parts of the OS to your taste that do not quite fit anywhere else. Include Grub and Plymouth theming. |
+
+You can run a specific tag or tags with the following:
+
+```bash
+$ cd system-manager
+$ ansible-playbook main.yml --tags core
+$ ansible-playbook main.yml --tags desktop,personalize
+```
 
 ## Changing Display Managers
 

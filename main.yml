@@ -141,7 +141,7 @@
         dest: "~{{ local_user }}/{{ item.dest }}"
         version: "{{ item.branch }}"
       with_items: "{{ git_repos }}"
-      tags: [ 'dev' ]
+      tags: [ 'dev', 'extra' ]
       become: false
 
     - name: Create Extra User Dirs

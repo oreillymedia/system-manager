@@ -179,3 +179,22 @@
         dest: "{{ item.dest }}"
       with_items: "{{ extra_system_files }}"
       tags: [ 'extra' ]
+
+    - set_fact:
+        final_message:
+          - line01: "ORM Dev setup complete. If this is the first time running this, do the following:"
+            line02: ""
+            line03: "* Go to https://http.larry.svc.prod-sfo.local/kube_signer/ and follow the instructions"
+            line04: "* Run the following commands:"
+            line05: gcloud auth login
+            line06: gcloud auth configure-docker
+            line07: gcloud beta container clusters get-credentials platform-dev-cluster --region us-west1 --project platform-dev-788014
+            line08: gcloud beta container clusters get-credentials platform-prod-cluster --region us-west1 --project platform-prod-399563
+            line09: kubectl config rename-context gke_platform-dev-788014_us-west1_platform-dev-cluster dev-gke
+            line10: kubectl config rename-context gke_platform-prod-399563_us-west1_platform-prod-cluster prod-gke
+      tags: [ 'final' ]
+
+    - name: Print extra steps
+      debug:
+        var: final_message
+      tags: [ 'final' ]

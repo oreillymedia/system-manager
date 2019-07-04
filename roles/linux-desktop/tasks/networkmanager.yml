@@ -1,3 +1,6 @@
+- set_fact:
+    linux_desktop_config_nm: "{{ linux_desktop_network_manager_configs and linux_desktop_network_manager_configs != 'none' }}"
+
 - name: Install Network Manager
   include_role:
     name: pkg-install
@@ -26,6 +29,7 @@
     path: /etc/NetworkManager/system-connections/
     state: directory
     recurse: true
+  when: linux_desktop_config_nm|bool
 
 - name: Copy NetworkManager configs
   template:
@@ -36,3 +40,4 @@
     group: root
   with_items: "{{ linux_desktop_network_manager_configs }}"
   notify: restart NetworkManager
+  when: linux_desktop_config_nm|bool

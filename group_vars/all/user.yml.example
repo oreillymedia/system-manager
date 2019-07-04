@@ -203,8 +203,8 @@ extra_user_files:
 # extra arbitary system files to copy
 # set to empty to not copy any
 extra_system_files:
-- { src: /home/cbailey/dev/system-manager/user/mortis-configs/pam/arch/sudo, dest: /etc/pam.d/sudo }
-- { src: /home/cbailey/dev/system-manager/user/mortis-configs/pam/arch/system-login, dest: /etc/pam.d/system-login }
+- { src: user/mortis-configs/pam/arch/sudo, dest: /etc/pam.d/sudo }
+- { src: user/mortis-configs/pam/arch/system-login, dest: /etc/pam.d/system-login }
 
 
 ## Network Utils Settings

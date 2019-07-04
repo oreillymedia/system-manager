@@ -1,5 +1,5 @@
-user/*
-!user/.gitkeep
+files/user/*
+!files/user/.gitkeep
 
 group_vars/all/user.yml
 
@@ -10,4 +10,3 @@ group_vars/all/user.yml
 *.retry
 
 # End of https://www.gitignore.io/api/ansible
-

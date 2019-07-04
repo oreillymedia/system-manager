@@ -48,16 +48,16 @@ $ # EDIT user.yml to your liking
 
 ### User Configs
 
-`system-manager` provides a folder, `user` that is completely git ignored. You
+`system-manager` provides a folder, `files/user` that is completely git ignored. You
 can put anything in here that you need to reference elsewhere in your `user.yml`.
 
 For example, what this is what I do:
 
 ```bash
-$ cd system-manager/user
+$ cd system-manager/files/user
 $ git clone git@github.com:AngellusMortis/mortis-configs.git
 $ cd system-manager/group_vars/all
-$ ln -s ../../user/mortis-configs/vars/user.arch.example.yml
+$ ln -s ../../files/user/mortis-configs/vars/user.arch.work.yml user.yml
 ```
 
 What way I can version all of my things, including custom themes!

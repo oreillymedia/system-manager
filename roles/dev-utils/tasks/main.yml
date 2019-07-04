@@ -37,11 +37,11 @@
 
 - name: Add user to docker Group
   user:
-    name: "{{ dev_utils_docker_user }}"
+    name: "{{ dev_utils_dev_user }}"
     groups: docker
   when:
   - dev_utils_install_docker|bool
-  - dev_utils_docker_user != 'none'
+  - dev_utils_dev_user != 'none'
 
 - name: Install nodejs
   include_role:

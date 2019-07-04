@@ -139,6 +139,11 @@
       dev_utils_setup_gcloud: "{{ setup_gcloud }}",
       tags: [ 'dev' ],
     }
+
+    - {
+      role: orm-dev,
+      tags: [ 'dev' ],
+    }
   tasks:
     - name: Clone git repos
       git:

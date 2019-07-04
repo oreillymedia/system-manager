@@ -1,0 +1,10 @@
+- name: Install ORM Cli
+  pip:
+    name: orm_cli
+    extra_args: "--upgrade --index-url https://nexus.common-build.gcp.oreilly.com/repository/pypi-group/simple"
+
+- name: Download kubectl v10
+  get_url:
+    url: https://storage.googleapis.com/kubernetes-release/release/v1.10.13/bin/linux/amd64/kubectl
+    dest: /usr/local/bin/kubectl10
+    mode: +x

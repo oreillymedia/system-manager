@@ -5,6 +5,7 @@ linux_desktop_environments:
 linux_desktop_supported_environments:
 - none
 - gnome
+- gnome-ubuntu
 - kde
 linux_desktop_supported_display_managers:
 - none

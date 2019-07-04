@@ -80,18 +80,18 @@ subset of the functionality it provides.
 | `helpers` | Subset of `core`. Copies over some helper scripts made to automate common tasks. |
 | `user` | A collection of tasks to configure various local user settings, like your `bashrc` or `gitconfig`. |
 | `cloud` | Subset of `user`. Intalls and configures a Cloud sync provider like OneDrive. |
+| `boot` | Tasks to theme your boot experience. Include Grub and Plymouth theming. |
 | `desktop` | Tasks to configure your desktop environment. |
 | `graphics` | Subset of `desktop`. Installs graphics drivers. |
 | `extra` | Tasks to copy artbiary files and install extra packages. |
 | `dev` | Tasks to bootstrap dev environments. Installs tools like Docker, NPM/Node.js, an Kubernetes. Also can clone artbiary git repos. |
-| `personalize` | Tasks to parts of the OS to your taste that do not quite fit anywhere else. Include Grub and Plymouth theming. |
 
 You can run a specific tag or tags with the following:
 
 ```bash
 $ cd system-manager
 $ ansible-playbook main.yml --tags core
-$ ansible-playbook main.yml --tags desktop,personalize
+$ ansible-playbook main.yml --tags boot,desktop
 ```
 
 ## Changing Display Managers

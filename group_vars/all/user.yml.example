@@ -128,7 +128,7 @@ onedrive_sync_list: none
 # supported: kde, gnome
 # only applies to Linux
 # set to empty value to not manage desktop environments
-# WARNING: GNOME support still work in progress, not as full featured as KDE
+# NOTE: GNOME does not support managing themes
 desktop_environments:
 # - kde
 
@@ -144,7 +144,7 @@ kde_theme: none
 # only applies to Linux
 # set to 'none' to not configure display manager
 # NOTE: See "Changing Display Managers" in README about changing your default
-# WARNING: GDM support still work in progress, not as full featured as SDDM
+# NOTE: GDE does not support managing themes
 desktop_display_manager: none
 
 # Whether or not you already have Plymouth installed and configured

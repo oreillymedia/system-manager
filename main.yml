@@ -74,6 +74,14 @@
         tags: [ 'user', 'cloud' ],
       }
 
+    - {
+      role: linux-boot,
+      linux_boot_grub_theme: "{{ grub_theme }}",
+      linux_boot_plymouth_theme: "{{ plymouth_theme }}",
+      linux_boot_grub_background: "{{ grub_background }}",
+      tags: [ 'boot' ],
+    }
+
     - { role: linux-graphics,
         linux_graphics_install_intel_drivers: "{{ install_intel_drivers }}",
         linux_graphics_install_nvidia_drivers: "{{ install_nvidia_drivers }}",
@@ -125,14 +133,6 @@
       dev_utils_setup_k8s: "{{ setup_k8s }}",
       dev_utils_setup_gcloud: "{{ setup_gcloud }}",
       tags: [ 'dev' ],
-    }
-
-    - {
-      role: personalize,
-      personalize_grub_theme: "{{ grub_theme }}",
-      personalize_plymouth_theme: "{{ plymouth_theme }}",
-      personalize_grub_background: "{{ grub_background }}",
-      tags: [ 'personalize' ],
     }
   tasks:
     - name: Clone git repos

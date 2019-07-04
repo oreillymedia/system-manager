@@ -1,17 +1,17 @@
 - name: Copy Grub Theme
   copy:
-    src: "{{ personalize_grub_theme }}"
+    src: "{{ linux_boot_grub_theme }}"
     dest: /boot/grub/themes/user-theme
-  when: personalize_grub_theme != 'none'
-  notify: 
+  when: linux_boot_grub_theme != 'none'
+  notify:
   - regen grub (Arch)
   - regen grub (Ubuntu)
 
 - name: Copy Grub background
   copy:
-    src: "{{ personalize_grub_background }}"
+    src: "{{ linux_boot_grub_background }}"
     dest: /boot/grub/background.png
-  when: personalize_grub_background != 'none'
+  when: linux_boot_grub_background != 'none'
   notify:
   - regen grub (Arch)
   - regen grub (Ubuntu)
@@ -21,7 +21,7 @@
     path: /etc/default/grub
     regexp: '^GRUB_THEME='
     line: GRUB_THEME=/boot/grub/themes/user-theme/theme.txt
-  when: personalize_grub_theme != 'none'
+  when: linux_boot_grub_theme != 'none'
   notify:
   - regen grub (Arch)
   - regen grub (Ubuntu)
@@ -31,16 +31,16 @@
     path: /etc/default/grub
     regexp: '^GRUB_BACKGROUND='
     line: GRUB_BACKGROUND="/boot/grub/background.png"
-  when: personalize_grub_background != 'none'
+  when: linux_boot_grub_background != 'none'
   notify:
   - regen grub (Arch)
   - regen grub (Ubuntu)
 
 - name: Copy Plymouth Theme
   copy:
-    src: "{{ personalize_plymouth_theme }}"
+    src: "{{ linux_boot_plymouth_theme }}"
     dest: /usr/share/plymouth/themes/user-theme
-  when: personalize_plymouth_theme != 'none'
+  when: linux_boot_plymouth_theme != 'none'
   notify: update plymouth (Arch)
 
 - name: Enable Plymouth Theme (Arch)
@@ -48,7 +48,7 @@
     src: plymouthd.conf.j2
     dest: /etc/plymouth/plymouthd.conf
   when:
-  - personalize_plymouth_theme != 'none'
+  - linux_boot_plymouth_theme != 'none'
   - ansible_distribution in pacman_distros
   notify: update plymouth (Arch)
 
@@ -60,7 +60,7 @@
     priority: 1000
   when:
   - ansible_distribution in apt_distros
-  - personalize_plymouth_theme != 'none'
+  - linux_boot_plymouth_theme != 'none'
 
 # https://wiki.archlinux.org/index.php/Silent_boot
 - name: Copy Slient Boot Configs
@@ -68,5 +68,5 @@
     src: sysctl.conf.j2
     dest: /etc/sysctl.d/20-quiet-printk.conf
   when:
-  - personalize_silent_boot|bool
+  - linux_boot_silent_boot|bool
   - ansible_distribution in pacman_distros

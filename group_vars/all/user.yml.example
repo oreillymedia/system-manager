@@ -199,6 +199,12 @@ extra_user_dirs:
 extra_user_files:
 # - { src: pip.conf, dest: .pip/pip.conf }
 
+# extra arbitary system files to copy
+# set to empty to not copy any
+extra_system_files:
+- { src: /home/cbailey/dev/system-manager/user/mortis-configs/pam/arch/sudo, dest: /etc/pam.d/sudo }
+- { src: /home/cbailey/dev/system-manager/user/mortis-configs/pam/arch/system-login, dest: /etc/pam.d/system-login }
+
 
 ## Network Utils Settings
 
@@ -258,7 +264,6 @@ grub_background: none
 # path must end in /
 # there must be a theme.txt file
 grub_theme: none
-# grub_theme: none
 
 # Plymouth theme to install
 # path must end in /

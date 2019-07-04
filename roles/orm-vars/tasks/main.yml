@@ -1,0 +1,49 @@
+- set_fact:
+    orm_vars_nm_merge: "{{ network_manager_configs and network_manager_configs != 'none' }}"
+    orm_vars_user_dirs_merge: "{{ extra_user_dirs and extra_user_dirs != 'none' }}"
+    orm_vars_user_files_merge: "{{ extra_user_files and extra_user_files != 'none' }}"
+    orm_vars_docker_config_replace: "{{ docker_config and docker_config != 'none' }}"
+
+- set_fact:
+    network_manager_configs: "{{ orm_network_manager_configs }}"
+  when: not orm_vars_nm_merge|bool
+
+- set_fact:
+    network_manager_configs: "{{ network_manager_configs + orm_network_manager_configs }}"
+  when: orm_vars_nm_merge|bool
+
+- debug:
+    var: network_manager_configs
+    verbosity: 1
+
+- set_fact:
+    extra_user_dirs: "{{ orm_extra_user_dirs }}"
+  when: not orm_vars_user_dirs_merge|bool
+
+- set_fact:
+    extra_user_dirs: "{{ extra_user_dirs + orm_extra_user_dirs }}"
+  when: orm_vars_user_dirs_merge|bool
+
+- debug:
+    var: extra_user_dirs
+    verbosity: 1
+
+- set_fact:
+    extra_user_files: "{{ orm_extra_user_files }}"
+  when: not orm_vars_user_files_merge|bool
+
+- set_fact:
+    extra_user_files: "{{ extra_user_files + orm_extra_user_files }}"
+  when: orm_vars_user_files_merge|bool
+
+- debug:
+    var: extra_user_files
+    verbosity: 1
+
+- set_fact:
+    docker_config: "{{ orm_docker_config }}"
+  when: not orm_vars_docker_config_replace|bool
+
+- debug:
+    var: docker_config
+    verbosity: 1

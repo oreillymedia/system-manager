@@ -34,6 +34,10 @@
       when: ansible_distribution in apt_distros
       tags: [ 'extra' ]
   roles:
+    - { role: orm-vars,
+        tags: [ 'desktop', 'extra', 'dev', 'vars' ],
+      }
+
     - { role: linux-common,
         tags: [ 'core' ],
         when: ansible_system == "Linux"

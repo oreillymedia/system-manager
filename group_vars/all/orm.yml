@@ -1,0 +1,10 @@
+orm_network_manager_configs:
+- "orm/network/O'Reilly.nmconnection"
+
+orm_extra_user_dirs:
+- .pip
+
+orm_extra_user_files:
+- { src: orm/pip.conf, dest: .pip/pip.conf }
+
+orm_docker_config: orm/docker.json

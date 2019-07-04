@@ -27,6 +27,17 @@ $PROJECT_DIRS = ["~/dev"]
 $MOUSE_SUPPORT = True
 # $XONSH_COLOR_STYLE = 'monokai'
 
+{% if user_configure_nvm %}
+# nvm does not work in Xonsh
+# Use bash or zsh instead
+# https://github.com/xonsh/xonsh/issues/3053
+# $NVM_DIR=$HOME + "/.nvm"
+# if !(test -f @($NVM_DIR+'/nvm.sh')):
+#     source-bash "$NVM_DIR/nvm.sh"
+#     source-bash "$NVM_DIR/bash_completion"
+$PATH.insert(0, '~/.nvm/current/bin')
+{% endif %}
+
 {% if user_use_powerline %}
 # powerline envs
 $PTK_STYLE_OVERRIDES['bottom-toolbar'] = 'noreverse'

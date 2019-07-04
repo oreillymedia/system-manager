@@ -64,6 +64,7 @@
         user_powerline_xonsh_prompt_bg_colors: "{{ powerline_xonsh_prompt_bg_colors }}",
         user_gpg_public_key_ring: "{{ gpg_public_key_ring }}",
         user_ssh_authorized_keys: "{{ ssh_authorized_keys }}",
+        user_configure_nvm: "{{ setup_nodejs }}",
         tags: [ 'user' ],
       }
 
@@ -128,7 +129,7 @@
       dev_utils_install_docker: "{{ setup_docker }}",
       dev_utils_docker_config: "{{ docker_config }}",
       dev_utils_extra_docker_host: "{{ extra_docker_host }}",
-      dev_utils_docker_user: "{{ local_user }}",
+      dev_utils_dev_user: "{{ local_user }}",
       dev_utils_setup_nodejs: "{{ setup_nodejs }}",
       dev_utils_setup_k8s: "{{ setup_k8s }}",
       dev_utils_setup_gcloud: "{{ setup_gcloud }}",
